@@ -1,0 +1,37 @@
+// Global styles
+
+html {
+	height: 100%;
+}
+
+body {
+	min-height: 100%;
+}
+
+#app {
+	font-size: 18px;
+	font-family: 'Raleway', 'Roboto', sans-serif;
+	font-weight: normal;
+}
+
+.z-9999 {
+	z-index: 9999;
+}
+
+// v-tooltip
+.tooltip {
+	@apply block;
+	z-index: 99;
+
+	.tooltip-inner {
+		@apply bg-black text-white rounded-lg px-4 py-2;
+	}
+
+	&[x-placement^='top'] .tooltip-arrow {
+		@apply absolute border-black -bottom-1;
+		border-width: 5px 5px 0 5px;
+		border-left-color: transparent;
+		border-right-color: transparent;
+		border-bottom-color: transparent;
+	}
+}
