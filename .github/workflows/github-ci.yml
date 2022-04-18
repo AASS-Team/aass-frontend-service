@@ -1,0 +1,28 @@
+name: pipeline
+on: push
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          lfs: true # fetch documents and images stored using Git LFS
+
+      - name: Install packages
+        run: npm install
+
+      - name: Lint
+        run: npm run lint -- --check
+
+      - name: Build App
+        if: contains(github.ref, 'master')  # only on master branch
+        run: npm run build
+
+      - name: Publish build artifacts
+        if: contains(github.ref, 'master')  # only on master branch
+        uses: actions/upload-artifact@v2
+        with:
+          name: build artifacts
+          path: dist
