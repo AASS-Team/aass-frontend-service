@@ -19,6 +19,11 @@ jobs:
       - name: Build App
         if: contains(github.ref, 'master')  # only on master branch
         run: npm run build
+        env:
+          VUE_APP_URL: ${{ secrets.VUE_APP_URL }}
+          VUE_APP_NAME: ${{ secrets.VUE_APP_NAME }}
+          VUE_APP_DESC: ${{ secrets.VUE_APP_DESC }}
+          VUE_APP_AUTHOR: ${{ secrets.VUE_APP_AUTHOR }}
 
       - name: Publish build artifacts
         if: contains(github.ref, 'master')  # only on master branch

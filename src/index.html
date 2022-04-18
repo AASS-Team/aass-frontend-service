@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="sk">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="referrer" content="no-referrer" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+
+		<meta name="author" content="<%= process.env.VUE_APP_AUTHOR %>" />
+		<meta name="description" lang="sk" content="<%= process.env.VUE_APP_DESC %>" />
+
+		<!-- Facebook Meta Tags -->
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="<%= process.env.VUE_APP_NAME %> %>" />
+		<meta property="og:description" content="<%= process.env.VUE_APP_DESC %>" />
+		<meta property="og:url" content="<%= process.env.VUE_APP_URL %>" />
+		<!-- <meta property="og:image" content=""/>-->
+
+		<!-- Twitter Meta Tags -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="<%= process.env.VUE_APP_NAME %>" />
+		<meta name="twitter:description" content="<%= process.env.VUE_APP_DESC %>" />
+		<meta property="twitter:url" content="<%= process.env.VUE_APP_URL %>" />
+		<!-- <meta name="twitter:image" content=""/>-->
+
+		<!-- Icons -->
+		<link
+			rel="icon"
+			type="image/x-icon"
+			href="<%= htmlWebpackPlugin.files.favicon %>"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			href="<%= htmlWebpackPlugin.files.favicon %>"
+		/>
+		<link
+			rel="apple-touch-icon"
+			href="<%= htmlWebpackPlugin.files.favicon %>"
+		/>
+
+		<title><%= process.env.VUE_APP_NAME %></title>
+
+		<style>
+			#app {
+				width: 100vw;
+				height: 100vh;
+			}
+
+			svg.spinner {
+				display: block;
+				height: 100%;
+				max-width: 100px;
+				margin: auto;
+				animation: 2s linear infinite spinner-animation;
+			}
+
+			svg.spinner > circle {
+				animation: 1.4s ease-in-out infinite both
+					spinner-circle-animation;
+				display: block;
+				fill: transparent;
+				stroke: currentColor;
+				stroke-linecap: round;
+				stroke-dasharray: 283;
+				stroke-dashoffset: 280;
+				stroke-width: 10px;
+				transform-origin: 50% 50%;
+			}
+
+			@keyframes spinner-animation {
+				0% {
+					transform: rotateZ(0deg);
+				}
+				100% {
+					transform: rotateZ(360deg);
+				}
+			}
+
+			@keyframes spinner-circle-animation {
+				0%,
+				25% {
+					stroke-dashoffset: 280;
+					transform: rotate(0);
+				}
+
+				50%,
+				75% {
+					stroke-dashoffset: 75;
+					transform: rotate(45deg);
+				}
+
+				100% {
+					stroke-dashoffset: 280;
+					transform: rotate(360deg);
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<noscript>
+			<strong
+				>We're sorry but <%= process.env.VUE_APP_NAME %> doesn't work properly
+				without JavaScript enabled. Please enable it to
+				continue.</strong
+			>
+		</noscript>
+		<div id="app">
+			<svg
+				viewBox="0 0 100 100"
+				xmlns="http://www.w3.org/2000/svg"
+				class="spinner"
+				style="color: #daa900"
+			>
+				<circle cx="50" cy="50" r="45" />
+			</svg>
+		</div>
+	</body>
+</html>
