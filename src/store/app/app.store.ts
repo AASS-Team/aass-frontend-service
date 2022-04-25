@@ -31,7 +31,7 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 export const store: Module<State, RootState> = {
 	namespaced: true,
 	state: {
-		navigationCollapsed: true,
+		navigationCollapsed: false,
 		navigation: [
 			{
 				title: '',
