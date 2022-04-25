@@ -1,12 +1,10 @@
 import { createApp } from 'vue';
 import router from './router';
+import { RouterView } from 'vue-router';
 import store from './store';
 
 // Root styles
 import '@/assets/scss/app.scss';
-
-// Root component
-import App from './App.vue';
 
 // Local dependencies
 import FontAwesomeIcon from '@/icons';
@@ -17,7 +15,7 @@ import axios from 'axios';
 import { VTooltip } from 'floating-vue';
 
 // Create Vue app
-const app = createApp(App);
+const app = createApp(RouterView);
 
 // Vuex
 app.use(store);
