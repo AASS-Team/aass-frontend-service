@@ -1,0 +1,66 @@
+<template>
+	<div class="flex justify-center items-center px-3 py-1 focus:outline-none">
+		<fa-icon
+			v-if="icon"
+			:icon="icon"
+			:class="{ 'mr-2': !!text }"
+		></fa-icon>
+
+		<button
+			style="text-align: center"
+			@click="$emit('click')"
+		>
+			{{ text }}
+		</button>
+	</div>
+</template>
+
+<script lang="ts">
+import { defineComponent, PropType } from 'vue';
+
+export default defineComponent({
+	props: {
+		text: {
+			type: String,
+			required: true
+		},
+		icon: {
+			type: Object as PropType<string | string[]>
+		}
+	}
+});
+</script>
+
+<style
+	scoped
+	lang="scss"
+>
+div {
+	@apply px-3 py-1 cursor-pointer;
+
+	&:focus button,
+	button:focus {
+		@apply outline-none;
+	}
+
+	button {
+		text-align: center;
+	}
+
+	&.primary {
+		@apply bg-yellow-500 text-white hover:bg-yellow-400;
+	}
+
+	&.secondary {
+		@apply border border-gray-600 text-gray-600 hover:bg-gray-200;
+	}
+
+	&.danger {
+		@apply border border-red-500 text-red-500 hover:bg-red-500 hover:text-white;
+	}
+
+	&.disabled {
+		@apply bg-gray-400 text-white hover:bg-gray-400 cursor-not-allowed;
+	}
+}
+</style>
