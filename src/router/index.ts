@@ -13,6 +13,9 @@ const routes: Array<RouteRecordRaw> = [
 			{
 				path: '/samples',
 				name: 'sample-list',
+				meta: {
+					title: 'Vzorky'
+				},
 				component: () =>
 					import(
 						/* webpackChunkName: "SampleList" */ '@/views/Sample/SampleList.vue'
@@ -40,6 +43,12 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
 	history: createWebHistory(process.env.BASE_URL),
 	routes
+});
+
+router.beforeEach(to => {
+	document.title = to.meta.title
+		? `${to.meta.title} | ${process.env.VUE_APP_NAME}`
+		: process.env.VUE_APP_NAME;
 });
 
 export default router;
