@@ -12,14 +12,15 @@
 					: 'px-6 '
 			"
 		>
-			<fa-icon
-				:icon="item.icon"
+			<div
 				:class="
 					isNavigationCollapsed
 						? 'w-full text-center text-2xl'
 						: 'w-1/6'
 				"
-			/>
+			>
+				<fa-icon :icon="item.icon" />
+			</div>
 			<span
 				:hidden="isNavigationCollapsed"
 				:class="
