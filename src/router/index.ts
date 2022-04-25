@@ -1,4 +1,9 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import {
+	createRouter,
+	createWebHistory,
+	RouteRecordRaw,
+	RouterView
+} from 'vue-router';
 import BaseView from '@/views/BaseView.vue';
 
 const routes: Array<RouteRecordRaw> = [
@@ -20,6 +25,22 @@ const routes: Array<RouteRecordRaw> = [
 					import(
 						/* webpackChunkName: "SampleList" */ '@/views/Sample/SampleList.vue'
 					)
+			},
+			{
+				path: '/administration',
+				component: RouterView,
+				children: [
+					{
+						path: '',
+						meta: {
+							title: 'Správa laboratórií'
+						},
+						component: () =>
+							import(
+								/* webpackChunkName: "Administration" */ '@/views/Administration/Administration.vue'
+							)
+					}
+				]
 			}
 		]
 	},
