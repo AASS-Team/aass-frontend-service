@@ -2,29 +2,69 @@
 <html lang="sk">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="referrer" content="no-referrer" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<meta
+			name="referrer"
+			content="no-referrer"
+		/>
+		<meta
+			http-equiv="X-UA-Compatible"
+			content="IE=edge"
+		/>
+		<meta
+			name="viewport"
+			content="width=device-width,initial-scale=1.0"
+		/>
 
-		<meta name="author" content="<%= process.env.VUE_APP_AUTHOR %>" />
-		<meta name="description" lang="sk" content="<%= process.env.VUE_APP_DESC %>" />
+		<meta
+			name="author"
+			content="<%= process.env.VUE_APP_AUTHOR %>"
+		/>
+		<meta
+			name="description"
+			lang="sk"
+			content="<%= process.env.VUE_APP_DESC %>"
+		/>
 
 		<!-- Facebook Meta Tags -->
-		<meta property="og:type" content="website" />
-		<meta property="og:title" content="<%= process.env.VUE_APP_NAME %> %>" />
-		<meta property="og:description" content="<%= process.env.VUE_APP_DESC %>" />
-		<meta property="og:url" content="<%= process.env.VUE_APP_URL %>" />
+		<meta
+			property="og:type"
+			content="website"
+		/>
+		<meta
+			property="og:title"
+			content="<%= process.env.VUE_APP_NAME %> %>"
+		/>
+		<meta
+			property="og:description"
+			content="<%= process.env.VUE_APP_DESC %>"
+		/>
+		<meta
+			property="og:url"
+			content="<%= process.env.VUE_APP_URL %>"
+		/>
 		<!-- <meta property="og:image" content=""/>-->
 
 		<!-- Twitter Meta Tags -->
-		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:title" content="<%= process.env.VUE_APP_NAME %>" />
-		<meta name="twitter:description" content="<%= process.env.VUE_APP_DESC %>" />
-		<meta property="twitter:url" content="<%= process.env.VUE_APP_URL %>" />
+		<meta
+			name="twitter:card"
+			content="summary_large_image"
+		/>
+		<meta
+			name="twitter:title"
+			content="<%= process.env.VUE_APP_NAME %>"
+		/>
+		<meta
+			name="twitter:description"
+			content="<%= process.env.VUE_APP_DESC %>"
+		/>
+		<meta
+			property="twitter:url"
+			content="<%= process.env.VUE_APP_URL %>"
+		/>
 		<!-- <meta name="twitter:image" content=""/>-->
 
 		<!-- Icons -->
-		<link
+		<!--<link
 			rel="icon"
 			type="image/x-icon"
 			href="<%= htmlWebpackPlugin.files.favicon %>"
@@ -37,7 +77,7 @@
 		<link
 			rel="apple-touch-icon"
 			href="<%= htmlWebpackPlugin.files.favicon %>"
-		/>
+		/>-->
 
 		<title><%= process.env.VUE_APP_NAME %></title>
 
@@ -100,8 +140,8 @@
 	<body>
 		<noscript>
 			<strong
-				>We're sorry but <%= process.env.VUE_APP_NAME %> doesn't work properly
-				without JavaScript enabled. Please enable it to
+				>We're sorry but <%= process.env.VUE_APP_NAME %> doesn't work
+				properly without JavaScript enabled. Please enable it to
 				continue.</strong
 			>
 		</noscript>
@@ -112,7 +152,11 @@
 				class="spinner"
 				style="color: #daa900"
 			>
-				<circle cx="50" cy="50" r="45" />
+				<circle
+					cx="50"
+					cy="50"
+					r="45"
+				/>
 			</svg>
 		</div>
 	</body>
