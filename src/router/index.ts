@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import BaseView from '@/views/BaseView.vue';
 
 const routes: Array<RouteRecordRaw> = [
 	{
@@ -6,12 +7,33 @@ const routes: Array<RouteRecordRaw> = [
 		redirect: '/samples'
 	},
 	{
-		path: '/samples',
-		name: 'sample-list',
+		path: '/',
+		component: BaseView,
+		children: [
+			{
+				path: '/samples',
+				name: 'sample-list',
+				component: () =>
+					import(
+						/* webpackChunkName: "SampleList" */ '@/views/Sample/SampleList.vue'
+					)
+			}
+		]
+	},
+	{
+		path: '/404',
+		name: '404',
+		meta: {
+			title: 'Stránka nenájdená'
+		},
 		component: () =>
 			import(
-				/* webpackChunkName: "SampleList" */ '../views/Sample/SampleList.vue'
+				/* webpackChunkName: "PageNotFound" */ '@/views/PageNotFoundView.vue'
 			)
+	},
+	{
+		path: '/:pathMatch(.*)*',
+		redirect: '/404'
 	}
 ];
 
