@@ -13,7 +13,9 @@ import {
 	faEyeDropper,
 	faWarehouse,
 	faPlus,
-	faSearch
+	faSearch,
+	faSpinner,
+	faTimes
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -29,7 +31,9 @@ library.add(
 	faEyeDropper,
 	faWarehouse,
 	faPlus,
-	faSearch
+	faSearch,
+	faSpinner,
+	faTimes
 );
 
 export default FontAwesomeIcon;

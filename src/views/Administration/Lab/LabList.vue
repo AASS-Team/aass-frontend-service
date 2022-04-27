@@ -8,7 +8,7 @@
 					class="shadow-sm border mr-3"
 				/>
 				<UiButton
-					:icon="['fas', 'plus']"
+					:icon="{ type: ['fas', 'plus'] }"
 					class="primary rounded-full"
 					text="Pridať vzorku"
 					@click="$router.push({ name: 'lab-new' })"

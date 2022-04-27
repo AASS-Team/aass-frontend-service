@@ -5,12 +5,14 @@
 	>
 		<fa-icon
 			v-if="icon"
-			:icon="icon"
+			:icon="icon.type"
+			:spin="icon.spin"
 			:class="{ 'mr-2': !!text }"
 		></fa-icon>
 
 		<button
 			style="text-align: center"
+			:type="type"
 			@click="$emit('click')"
 			:disabled="this.disabled"
 		>
@@ -28,14 +30,24 @@ export default defineComponent({
 			type: String,
 			required: true
 		},
+		type: {
+			type: String as PropType<UiButtonType>,
+			default: 'button'
+		},
 		icon: {
-			type: Object as PropType<string | string[]>
+			type: Object as PropType<UiButtonIcon>
 		},
 		disabled: {
 			type: Boolean
 		}
 	}
 });
+
+type UiButtonType = 'button' | 'submit';
+interface UiButtonIcon {
+	icon: string | string[];
+	spin: boolean;
+}
 </script>
 
 <style

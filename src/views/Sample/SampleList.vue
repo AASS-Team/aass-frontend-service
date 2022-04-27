@@ -2,8 +2,8 @@
 	<p>SampleList works!</p>
 </template>
 
-<script>
-export default {};
-</script>
+<script lang="ts">
+import { defineComponent } from 'vue';
 
-<style scoped></style>
+export default defineComponent({});
+</script>
