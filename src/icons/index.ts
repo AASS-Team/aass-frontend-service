@@ -11,7 +11,9 @@ import {
 	faLock,
 	faSignOutAlt,
 	faEyeDropper,
-	faWarehouse
+	faWarehouse,
+	faPlus,
+	faSearch
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -25,7 +27,9 @@ library.add(
 	faLock,
 	faSignOutAlt,
 	faEyeDropper,
-	faWarehouse
+	faWarehouse,
+	faPlus,
+	faSearch
 );
 
 export default FontAwesomeIcon;
