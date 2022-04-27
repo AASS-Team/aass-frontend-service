@@ -10,7 +10,7 @@
 				to="/change-password"
 			>
 				<!-- TODO auth -->
-				<!-- <user-circle :name="user.login"/>-->
+				<UserCircle name="Jožko Gregor"></UserCircle>
 				<span class="pl-3 text-gray-900">Jožko Gregor</span>
 			</router-link>
 		</div>
@@ -19,6 +19,11 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import UserCircle from '@/components/UserCircle.vue';
 
-export default defineComponent({});
+export default defineComponent({
+	components: {
+		UserCircle
+	}
+});
 </script>
