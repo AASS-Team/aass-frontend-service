@@ -76,6 +76,17 @@ const routes: Array<RouteRecordRaw> = [
 									import(
 										/* webpackChunkName: "LabDetail" */ '@/views/Administration/Lab/LabDetail.vue'
 									)
+							},
+							{
+								path: ':id/edit',
+								name: 'lab-edit',
+								meta: {
+									title: 'Upraviť laboratórium'
+								},
+								component: () =>
+									import(
+										/* webpackChunkName: "LabEdit" */ '@/views/Administration/Lab/LabEdit.vue'
+									)
 							}
 						]
 					}

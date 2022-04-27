@@ -9,6 +9,7 @@ import { Actions, Getters, Lab, State } from '@/store/lab/lab.types';
 const SET_LABS = 'set_labs';
 const SET_LAB = 'set_lab';
 const ADD_LAB = 'add_lab';
+const UPDATE_LAB = 'update_lab';
 const RESET_STATE = 'reset_state';
 
 const getters: GetterTreeAdaptor<Getters, State, RootState> = {
@@ -58,7 +59,7 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 						}
 					]
 				});
-			}, 1500);
+			}, 750);
 		}).then(response => {
 			commit(SET_LABS, response.data);
 		});
@@ -74,7 +75,7 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 						available: true
 					}
 				});
-			}, 1500);
+			}, 750);
 		}).then(response => {
 			commit(SET_LAB, response.data);
 		});
@@ -90,9 +91,25 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 						available: true
 					}
 				});
-			}, 1500);
+			}, 750);
 		}).then(response => {
 			commit(ADD_LAB, response.data);
+		});
+	},
+	updateLab({ commit }, { id, lab }) {
+		return new Promise<{ data: Lab }>(resolve => {
+			setTimeout(() => {
+				resolve({
+					data: {
+						id: id,
+						name: lab.name,
+						address: lab.address,
+						available: true
+					}
+				});
+			}, 750);
+		}).then(response => {
+			commit(UPDATE_LAB, { id, lab: response.data });
 		});
 	},
 	async resetState({ commit }) {
@@ -116,6 +133,11 @@ export const store: Module<State, RootState> = {
 		},
 		[ADD_LAB](state, payload) {
 			state.labs = [...state.labs, payload];
+		},
+		[UPDATE_LAB](state, payload) {
+			state.labs = state.labs.map(lab =>
+				payload.id === lab.id ? payload.lab : lab
+			);
 		},
 		[RESET_STATE](state) {
 			state.labs = [];
