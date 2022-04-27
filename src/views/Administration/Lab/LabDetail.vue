@@ -117,7 +117,7 @@ export default defineComponent({
 		// initial loader
 		this.loading = true;
 		// fetch data from BE
-		return this.fetchLab(this.$route.params.id).finally(() => {
+		this.fetchLab(this.$route.params.id).finally(() => {
 			this.loading = false;
 		});
 	},
