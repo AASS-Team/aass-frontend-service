@@ -1,5 +1,8 @@
 <template>
-	<div class="flex justify-center items-center px-3 py-1 focus:outline-none">
+	<div
+		class="flex justify-center items-center px-3 py-1 focus:outline-none"
+		:class="{ disabled: disabled }"
+	>
 		<fa-icon
 			v-if="icon"
 			:icon="icon"
@@ -9,6 +12,7 @@
 		<button
 			style="text-align: center"
 			@click="$emit('click')"
+			:disabled="this.disabled"
 		>
 			{{ text }}
 		</button>
@@ -26,6 +30,9 @@ export default defineComponent({
 		},
 		icon: {
 			type: Object as PropType<string | string[]>
+		},
+		disabled: {
+			type: Boolean
 		}
 	}
 });
@@ -60,7 +67,11 @@ div {
 	}
 
 	&.disabled {
-		@apply bg-gray-400 text-white hover:bg-gray-400 cursor-not-allowed;
+		@apply bg-gray-300 text-white hover:bg-gray-300 cursor-not-allowed border-0;
+
+		button {
+			@apply cursor-not-allowed;
+		}
 	}
 }
 </style>
