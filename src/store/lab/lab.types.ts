@@ -17,6 +17,7 @@ export interface Getters {
 
 export type Actions = {
 	fetchLabs: () => Promise<void>;
-	fetchLab: (id: number) => Promise<void>;
+	fetchLab: (id: string) => Promise<void>;
+	saveLab: (lab: Lab) => Promise<void>;
 	resetState: () => Promise<void>;
 };

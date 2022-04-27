@@ -55,7 +55,17 @@ const routes: Array<RouteRecordRaw> = [
 										/* webpackChunkName: "LabList" */ '@/views/Administration/Lab/LabList.vue'
 									)
 							},
-
+							{
+								path: 'new',
+								name: 'lab-new',
+								meta: {
+									title: 'Nové laboratórium'
+								},
+								component: () =>
+									import(
+										/* webpackChunkName: "LabCreate" */ '@/views/Administration/Lab/LabCreate.vue'
+									)
+							},
 							{
 								path: ':id',
 								name: 'lab-detail',
@@ -64,7 +74,7 @@ const routes: Array<RouteRecordRaw> = [
 								},
 								component: () =>
 									import(
-										/* webpackChunkName: "LabCreate" */ '@/views/Administration/Lab/LabDetail.vue'
+										/* webpackChunkName: "LabDetail" */ '@/views/Administration/Lab/LabDetail.vue'
 									)
 							}
 						]
