@@ -54,6 +54,18 @@ const routes: Array<RouteRecordRaw> = [
 									import(
 										/* webpackChunkName: "LabList" */ '@/views/Administration/Lab/LabList.vue'
 									)
+							},
+
+							{
+								path: ':id',
+								name: 'lab-detail',
+								meta: {
+									title: 'Detail laboratória'
+								},
+								component: () =>
+									import(
+										/* webpackChunkName: "LabCreate" */ '@/views/Administration/Lab/LabDetail.vue'
+									)
 							}
 						]
 					}

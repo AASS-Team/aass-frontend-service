@@ -57,6 +57,7 @@ import { Lab } from '@/store/lab/lab.types';
 import { mapActions, mapGetters } from 'vuex';
 import UiTableMixin from '@/mixins/UiTable.mixin';
 import UiStatusIcon from '@/components/ui/UiStatusIcon.vue';
+import LabMixin from '@/mixins/Lab.mixin';
 
 export default defineComponent({
 	components: {
@@ -65,7 +66,7 @@ export default defineComponent({
 		UiTable,
 		UiStatusIcon
 	},
-	mixins: [UiTableMixin],
+	mixins: [UiTableMixin, LabMixin],
 	data() {
 		return {
 			loading: true
@@ -103,12 +104,7 @@ export default defineComponent({
 		}
 	},
 	methods: {
-		...mapActions('LabStore', ['fetchLabs', 'resetState']),
-		...{
-			mapAvailable(available: boolean) {
-				return available ? 'dostupné' : 'nedostupné';
-			}
-		}
+		...mapActions('LabStore', ['fetchLabs', 'resetState'])
 	},
 	mounted: function () {
 		// initial loader

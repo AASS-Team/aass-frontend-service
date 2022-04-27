@@ -7,11 +7,15 @@ import {
 import { Actions, Getters, State } from '@/store/lab/lab.types';
 
 const SET_LABS = 'set_labs';
+const SET_LAB = 'set_lab';
 const RESET_STATE = 'reset_state';
 
 const getters: GetterTreeAdaptor<Getters, State, RootState> = {
 	labs(state: State) {
 		return state.labs;
+	},
+	lab(state: State) {
+		return state.lab;
 	}
 };
 
@@ -56,6 +60,20 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 			]);
 		});
 	},
+	fetchLab({ commit }, id) {
+		return new Promise(resolve => {
+			setTimeout(() => {
+				resolve(null);
+			}, 1500);
+		}).then(() => {
+			commit(SET_LAB, {
+				id: id,
+				name: 'A211',
+				address: 'Radlinského 9, 812 37 Bratislava',
+				available: true
+			});
+		});
+	},
 	async resetState({ commit }) {
 		commit(RESET_STATE);
 	}
@@ -64,12 +82,16 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 export const store: Module<State, RootState> = {
 	namespaced: true,
 	state: {
-		labs: []
+		labs: [],
+		lab: null!
 	},
 	getters,
 	mutations: {
 		[SET_LABS](state, payload) {
 			state.labs = payload;
+		},
+		[SET_LAB](state, payload) {
+			state.lab = payload;
 		},
 		[RESET_STATE](state) {
 			state.labs = [];
