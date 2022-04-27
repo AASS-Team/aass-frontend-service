@@ -70,22 +70,12 @@ export default defineComponent({
 		handleSubmit() {
 			this.saving = true;
 			if ((this.$refs.form as HTMLFormElement).checkValidity()) {
-				return this.saveLab(this.lab)
-					.then(() => {
-						this.saving = false;
-						return this.$router.push({
-							name: 'lab-list'
-						});
-					})
-					.catch(e => {
-						this.saving = false;
-						this.setAlert({
-							message: e.response?.data?.error
-								? e.response.data.error
-								: e.message,
-							type: 'error'
-						});
+				return this.saveLab(this.lab).then(() => {
+					this.saving = false;
+					return this.$router.push({
+						name: 'lab-list'
 					});
+				});
 			} else {
 				this.saving = false;
 				(this.$refs.form as HTMLFormElement).reportValidity();

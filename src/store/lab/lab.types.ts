@@ -20,5 +20,6 @@ export type Actions = {
 	fetchLab: (id: string) => Promise<void>;
 	saveLab: (lab: Lab) => Promise<void>;
 	updateLab: (payload: { id: string; lab: Lab }) => Promise<void>;
+	deleteLab: (id: string) => Promise<void>;
 	resetState: () => Promise<void>;
 };

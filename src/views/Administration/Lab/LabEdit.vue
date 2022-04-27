@@ -84,23 +84,15 @@ export default defineComponent({
 		handleSubmit() {
 			this.saving = true;
 			if ((this.$refs.form as HTMLFormElement).checkValidity()) {
-				return this.updateLab({ id: this.lab.id, lab: this.lab })
-					.then(() => {
+				return this.updateLab({ id: this.lab.id, lab: this.lab }).then(
+					() => {
 						this.saving = false;
 						return this.$router.push({
 							name: 'lab-detail',
 							params: { id: this.lab.id }
 						});
-					})
-					.catch(e => {
-						this.saving = false;
-						this.setAlert({
-							message: e.response?.data?.error
-								? e.response.data.error
-								: e.message,
-							type: 'error'
-						});
-					});
+					}
+				);
 			} else {
 				this.saving = false;
 				(this.$refs.form as HTMLFormElement).reportValidity();

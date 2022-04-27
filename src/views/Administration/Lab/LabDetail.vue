@@ -69,6 +69,7 @@
 					:disabled="this.loading"
 					text="Vymazať"
 					class="danger rounded-full ml-3"
+					@click="confirmDelete"
 				></UiButton>
 			</div>
 		</div>
@@ -99,7 +100,18 @@ export default defineComponent({
 		...mapGetters('LabStore', ['lab'])
 	},
 	methods: {
-		...mapActions('LabStore', ['fetchLab', 'deleteLab', 'resetState'])
+		...mapActions('AppStore', ['setAlert']),
+		...mapActions('LabStore', ['fetchLab', 'deleteLab', 'resetState']),
+
+		confirmDelete() {
+			if (confirm('Chcete vymazať toto laboratórium?')) {
+				this.deleteLab(this.lab.id).then(() => {
+					return this.$router.push({
+						name: 'lab-list'
+					});
+				});
+			}
+		}
 	},
 	mounted: function () {
 		// initial loader
