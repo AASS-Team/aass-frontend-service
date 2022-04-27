@@ -1,5 +1,6 @@
 <template>
 	<div class="h-screen bg-white flex">
+		<Alert />
 		<Navigation />
 		<div class="flex flex-col flex-1 h-screen max-h-full overflow-y-auto">
 			<Header />
@@ -17,11 +18,13 @@
 import { defineComponent } from 'vue';
 import Navigation from '@/components/Navigation/Navigation.vue';
 import Header from '@/components/Header/Header.vue';
+import Alert from '@/components/Alert/Alert.vue';
 
 export default defineComponent({
 	components: {
 		Navigation,
-		Header
+		Header,
+		Alert
 	}
 });
 </script>

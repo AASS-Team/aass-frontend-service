@@ -30,7 +30,7 @@ module.exports = {
 		'vue/multi-word-component-names': [
 			'error',
 			{
-				ignores: ['Header', 'Navigation']
+				ignores: ['Header', 'Navigation', 'Administration', 'Alert']
 			}
 		]
 	}
