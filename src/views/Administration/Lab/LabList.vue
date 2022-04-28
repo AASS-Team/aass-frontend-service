@@ -10,7 +10,7 @@
 				<UiButton
 					:icon="{ type: ['fas', 'plus'] }"
 					class="primary rounded-full"
-					text="Pridať vzorku"
+					text="Pridať laboratórium"
 					@click="$router.push({ name: 'lab-new' })"
 				/>
 			</div>
@@ -53,11 +53,10 @@ import UiButton from '@/components/ui/UiButton.vue';
 import UiSearch from '@/components/ui/UiSearch.vue';
 import UiTable from '@/components/ui/UiTable.vue';
 import { TableOptions } from '@/types/table-options.type';
-import { Lab } from '@/store/lab/lab.types';
+import { Sample } from '@/store/sample/sample.types';
 import { mapActions, mapGetters } from 'vuex';
 import UiTableMixin from '@/mixins/UiTable.mixin';
 import UiStatusIcon from '@/components/ui/UiStatusIcon.vue';
-import LabMixin from '@/mixins/Lab.mixin';
 
 export default defineComponent({
 	components: {
@@ -66,22 +65,22 @@ export default defineComponent({
 		UiTable,
 		UiStatusIcon
 	},
-	mixins: [UiTableMixin, LabMixin],
+	mixins: [UiTableMixin],
 	data() {
 		return {
 			loading: true
 		};
 	},
 	computed: {
-		...mapGetters('LabStore', ['labs']),
-		options(): TableOptions<Lab> {
+		...mapGetters('SampleStore', ['samples']),
+		options(): TableOptions<Sample> {
 			return {
 				data: {
-					items: this.labs,
-					onClick: lab =>
+					items: this.samples,
+					onClick: sample =>
 						this.$router.push({
-							name: 'lab-detail',
-							params: { id: lab.id }
+							name: 'sample-detail',
+							params: { id: sample.id }
 						}),
 					empty: 'Ľutujeme, nenašli sa žiadne laboratória',
 					loading: this.loading
