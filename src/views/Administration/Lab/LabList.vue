@@ -10,7 +10,7 @@
 				<UiButton
 					:icon="{ type: ['fas', 'plus'] }"
 					class="primary rounded-full"
-					text="Pridať vzorku"
+					text="Pridať laboratórium"
 					@click="$router.push({ name: 'lab-new' })"
 				/>
 			</div>
