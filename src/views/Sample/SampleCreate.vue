@@ -19,19 +19,12 @@
 					labelFor="user"
 					class="mt-10"
 				>
-
-
-					<select
-						:value="sample.user"
+					<UiSelect
 						name="user"
-						class="text-gray-700 w-1/3 bg-gray-300 p-2 rounded focus:outline-none placeholder-gray-500"
+						:options="users"
+						class="text-gray-700 w-1/4"
 						required>
-						<option value="Ferko">Red</option>
-						<option value="Karin">Blue</option>
-						<option value="Nikca">Yellow</option>
-					</select>
-
-
+					</UiSelect>
 				</UiLabel>
 
 				<UiLabel
@@ -39,19 +32,15 @@
 					labelFor="grant"
 					class="2 items-center"
 				>
-					<select
-						:value="sample.grant"
+					<UiSelect
 						name="grant"
-						class="text-gray-700 w-1/3 bg-gray-300 p-2 rounded focus:outline-none placeholder-gray-500"
-						required>
-						<option value="Ferko">Red</option>
-						<option value="Karin">Blue</option>
-						<option value="Nikca">Yellow</option>
-					</select>
+						:options="grants"
+						class="text-gray-700 w-1/4">
+					</UiSelect>
 					<span
 						class="ml-3 text-gray-500 text-sm ">(v prípade že ste samoplatca, túto možnosť nevyberajte)</span>
-
 				</UiLabel>
+
 				<UiLabel
 					text="Množstvo"
 					labelFor="amount"
@@ -101,9 +90,11 @@ import {defineComponent} from 'vue';
 import UiButton from '@/components/ui/UiButton.vue';
 import UiLabel from '@/components/ui/UiLabel.vue';
 import {mapActions} from 'vuex';
+import UiSelect from "@/components/ui/UiSelect.vue";
 
 export default defineComponent({
 	components: {
+		UiSelect,
 		UiButton,
 		UiLabel
 	},
@@ -113,7 +104,31 @@ export default defineComponent({
 			sample: {
 				name: undefined,
 				address: undefined
-			}
+			},
+			users: [
+				{
+					id: 'f7d9caf4-9101-4fe5-859a-f286272640a3',
+					first_name: 'Nikoleta',
+					last_name: 'Hroncova',
+					email: 'nikoleta@gmail.com'
+				},
+				{
+					id: 'f7d9caf4-9101-4fe5-859a-f286272640b3',
+					first_name: 'Petra',
+					last_name: 'Hroncova',
+					email: 'petra@gmail.com'
+				},
+			],
+			grants: [
+				{
+					id: 'f7d9caf4-9101-4fe5-859a-f286272640a3',
+					name: 'NBU',
+				},
+				{
+					id: 'f7d9caf4-9101-4fe5-859a-f286272640b3',
+					name: 'STU',
+				},
+			]
 		};
 	},
 	methods: {

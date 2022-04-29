@@ -14,7 +14,7 @@
 			</h1>
 			<UiLabel
 				text="Používatel"
-				labelFor="usere"
+				labelFor="user"
 			>
 				<span
 					v-if="this.loading"

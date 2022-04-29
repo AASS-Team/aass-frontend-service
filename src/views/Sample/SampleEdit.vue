@@ -19,19 +19,19 @@
 					class="text-2xl border-b-2 border-gray-300 focus:outline-none focus:border-yellow-500 w-1/3"
 					required
 				/>
+
 				<UiLabel
 					text="Používatel"
 					labelFor="user"
 					class="mt-10"
 				>
-					<span
-						v-if="this.loading"
-						class="inline-block bg-gray-200 w-1/4 h-full opacity-50"
-					>					</span>
-
-
-
-
+					<UiSelect
+						name="user"
+						:options="users"
+						class="text-gray-700 w-1/4"
+						required
+						selected=sample.user.id>
+					</UiSelect>
 				</UiLabel>
 
 				<UiLabel
@@ -39,17 +39,16 @@
 					labelFor="grant"
 					class="2 items-center"
 				>
-						<span
-							v-if="this.loading"
-							class="inline-block bg-gray-200 w-1/4 h-full opacity-50"
-						>
-						&nbsp;
-					</span>
-
+					<UiSelect
+						name="grant"
+						:options="grants"
+						class="text-gray-700 w-1/4"
+						selected=sample.grant.id>
+					</UiSelect>
 					<span
 						class="ml-3 text-gray-500 text-sm ">(v prípade že ste samoplatca, túto možnosť nevyberajte)</span>
-
 				</UiLabel>
+
 				<UiLabel
 					text="Množtvo"
 					labelFor="amount"
@@ -88,7 +87,6 @@
 						:value="sample.note"
 						name="note"
 						class="text-gray-700 w-2/3 bg-gray-300 p-2 rounded focus:outline-none placeholder-gray-500"
-						required
 					/>
 				</UiLabel>
 
@@ -114,17 +112,44 @@
 import {defineComponent} from 'vue';
 import UiButton from '@/components/ui/UiButton.vue';
 import UiLabel from '@/components/ui/UiLabel.vue';
+import UiSelect from "@/components/ui/UiSelect.vue";
 import {mapActions, mapGetters} from 'vuex';
 
 export default defineComponent({
 	components: {
 		UiButton,
-		UiLabel
+		UiLabel,
+		UiSelect,
 	},
 	data: () => {
 		return {
 			saving: false,
-			loading: true
+			loading: true,
+			users: [
+				{
+					id: 'f7d9caf4-9101-4fe5-859a-f286272640a3',
+					first_name: 'Nikoleta',
+					last_name: 'Hroncova',
+					email: 'nikoleta@gmail.com'
+				},
+				{
+					id: 'f7d9caf4-9101-4fe5-859a-f286272640b3',
+					first_name: 'Petra',
+					last_name: 'Hroncova',
+					email: 'petra@gmail.com'
+				},
+			],
+			//TODO change to fetchgrant in future
+			grants: [
+				{
+					id: '123',
+					name: 'NBU',
+				},
+				{
+					id: 'f7d9caf4-9101-4fe5-859a-f286272640b3',
+					name: 'STU',
+				},
+			]
 		};
 	},
 	computed: {
@@ -140,9 +165,10 @@ export default defineComponent({
 					() => {
 						this.saving = false;
 						return this.$router.push({
-							name: 'sample-detail',
+							name: 'samples-detail',
 							params: {id: this.sample.id}
 						});
+
 					}
 				);
 			} else {

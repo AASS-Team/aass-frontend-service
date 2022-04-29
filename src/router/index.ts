@@ -40,7 +40,7 @@ const routes: Array<RouteRecordRaw> = [
 						component: () =>
 							import
 								(
-								/* webpackChunkName: "SampleList" */ '@/views/Sample/SampleDetail.vue'
+								/* webpackChunkName: "SampleDetail" */ '@/views/Sample/SampleDetail.vue'
 								)
 					},
 					{
@@ -52,7 +52,7 @@ const routes: Array<RouteRecordRaw> = [
 						component: () =>
 							import
 								(
-								/* webpackChunkName: "SampleList" */ '@/views/Sample/SampleCreate.vue'
+								/* webpackChunkName: "SampleCreate" */ '@/views/Sample/SampleCreate.vue'
 								)
 					},
 					{
@@ -64,7 +64,7 @@ const routes: Array<RouteRecordRaw> = [
 						component: () =>
 							import
 								(
-								/* webpackChunkName: "SampleList" */ '@/views/Sample/SampleEdit.vue'
+								/* webpackChunkName: "SampleEdit" */ '@/views/Sample/SampleEdit.vue'
 								)
 					},
 

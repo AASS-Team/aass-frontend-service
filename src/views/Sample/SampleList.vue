@@ -20,19 +20,19 @@
 			<template v-slot="item">
 				<td
 					class="py-3 border-b border-gray-200"
-					:class="[tableRowsClassObject(options, 1)]"
+					:class="[tableRowsClassObject(options, 0)]"
 				>
 					{{ item.name }}
 				</td>
 				<td
 					class="py-3 border-b border-gray-200"
-					:class="[tableRowsClassObject(options, 2)]"
+					:class="[tableRowsClassObject(options, 1)]"
 				>
 					{{ item.user.first_name + " " + item.user.last_name }}
 				</td>
 				<td
 					class="py-3"
-					:class="[tableRowsClassObject(options, 3)]"
+					:class="[tableRowsClassObject(options, 2)]"
 				>
 					{{ item.created_at }}
 				</td>
@@ -79,17 +79,13 @@ export default defineComponent({
 				},
 				header: {
 					items: [
-						{
-							name: ''
-						},
 						{ name: 'názov' },
 						{ name: 'používatel' },
 						{ name: 'dátum' }
 					]
 				},
 				layout: [
-					{ width: 8 },
-					{ width: 96, 'width-sm': 64, left: true }
+					{ width: 96, 'width-sm': 64, left: true },
 				]
 			};
 		}

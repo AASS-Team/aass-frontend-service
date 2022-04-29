@@ -98,9 +98,10 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
                             first_name: "Martin",
                             last_name: "Jahoda",
                             email: "Martin.Jahoda@gmail.com",
-                        }, grant: {
+                        },
+                        grant: {
                             id: "123",
-                            name: "nbu",
+                            name: "NBU",
                         }
                     }
                 });
