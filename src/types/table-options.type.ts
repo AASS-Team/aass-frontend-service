@@ -16,7 +16,7 @@ interface TableHeaderItem {
 }
 
 interface TableColumnLayout {
-	width: number;
+	width?: number;
 	'width-sm'?: number;
 	left?: boolean;
 }

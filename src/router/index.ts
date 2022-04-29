@@ -27,6 +27,56 @@ const routes: Array<RouteRecordRaw> = [
 					)
 			},
 			{
+				path: '/grants',
+					component: RouterView,
+					children: [
+						{
+							path: '',
+							name: 'grant-list',
+							meta: {
+								title: 'Granty'
+							},
+							component: () =>
+								import(
+									/* webpackChunkName: "GrantList" */ '@/views/Grant/GrantList.vue'
+								)
+						},
+						{
+							path: 'new',
+							name: 'grant-new',
+							meta: {
+								title: 'Nový grant'
+							},
+							component: () =>
+								import(
+									/* webpackChunkName: "GrantCreate" */ '@/views/Grant/GrantCreate.vue'
+								)
+						},
+						{
+							path: ':id',
+							name: 'grant-detail',
+							meta: {
+								title: 'Detail grantu'
+							},
+							component: () =>
+								import(
+									/* webpackChunkName: "GrantDetail" */ '@/views/Grant/GrantDetail.vue'
+								)
+						},
+						{
+							path: ':id/edit',
+							name: 'grant-edit',
+							meta: {
+								title: 'Upraviť grant'
+							},
+							component: () =>
+								import(
+									/* webpackChunkName: "GrantEdit" */ '@/views/Grant/GrantEdit.vue'
+								)
+						}
+					]
+			},
+			{
 				path: '/administration',
 				component: RouterView,
 				children: [
