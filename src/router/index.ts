@@ -87,7 +87,57 @@ const routes: Array<RouteRecordRaw> = [
 									import(
 										/* webpackChunkName: "LabEdit" */ '@/views/Administration/Lab/LabEdit.vue'
 									)
-							}
+							},
+						]
+					},
+					{
+						path: 'tools',
+						component: RouterView,
+						children: [
+							{
+								path: '',
+								name: 'tool-list',
+								meta: {
+									title: 'Nástroje'
+								},
+								component: () =>
+									import(
+										'@/views/Administration/Tool/ToolList.vue'
+									)
+							},
+							{
+								path: ':id',
+								name: 'tool-detail',
+								meta: {
+									title: 'Detail nástroja'
+								},
+								component: () =>
+									import(
+										'@/views/Administration/Tool/ToolDetail.vue'
+									)
+							},
+							{
+								path: 'new',
+								name: 'tool-new',
+								meta: {
+									title: 'Nový nástroj'
+								},
+								component: () =>
+									import(
+										'@/views/Administration/Tool/ToolCreate.vue'
+									)
+							},
+							{
+								path: ':id/edit',
+								name: 'tool-edit',
+								meta: {
+									title: 'Upraviť nástroj'
+								},
+								component: () =>
+									import(
+										/* webpackChunkName: "LabEdit" */ '@/views/Administration/Tool/ToolEdit.vue'
+									)
+							},
 						]
 					}
 				]

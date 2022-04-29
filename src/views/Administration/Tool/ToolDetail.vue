@@ -9,7 +9,7 @@
 					&nbsp;
 				</span>
 				<template v-else>
-					{{ lab.name }}
+					{{ tool.name }}
 				</template>
 			</h1>
 
@@ -28,16 +28,16 @@
 					class="relative flex items-center"
 				>
 					<UiStatusIcon
-						:available="lab.available"
+						:available="tool.available"
 						style="position: absolute; left: -1em"
 					/>
-					{{ mapAvailable(lab.available) }}
+					{{ mapAvailable(tool.available) }}
 				</div>
 			</UiLabel>
 
 			<UiLabel
-				text="Adresa"
-				labelFor="adress"
+				text="Typ"
+				labelFor="type"
 			>
 				<span
 					v-if="this.loading"
@@ -49,25 +49,25 @@
 					v-else
 					class="relative flex items-center"
 				>
-					{{ lab.address }}
+					{{ tool.type }}
 				</div>
 			</UiLabel>
 
 			<div class="flex flex-row justify-end mt-5">
 				<UiButton
 					:disabled="this.loading"
-					text="Upraviť"
+					text="Upraviť nástroj"
 					class="primary rounded-full ml-3"
 					@click="
 						this.$router.push({
-							name: 'lab-edit',
-							params: { id: lab?.id }
+							name: 'tool-edit',
+							params: { id: tool?.id }
 						})
 					"
 				></UiButton>
 				<UiButton
 					:disabled="this.loading"
-					text="Vymazať"
+					text="Vymazať nástroj"
 					class="danger rounded-full ml-3"
 					@click="confirmDelete"
 				></UiButton>
@@ -97,17 +97,17 @@ export default defineComponent({
 		};
 	},
 	computed: {
-		...mapGetters('LabStore', ['lab'])
+		...mapGetters('ToolStore', ['tool'])
 	},
 	methods: {
 		...mapActions('AppStore', ['setAlert']),
-		...mapActions('LabStore', ['fetchLab', 'deleteLab', 'resetState']),
+		...mapActions('ToolStore', ['fetchTool', 'deleteTool', 'resetState']),
 
 		confirmDelete() {
-			if (confirm('Chcete vymazať toto laboratórium?')) {
-				this.deleteLab(this.lab.id).then(() => {
+			if (confirm('Chcete vymazať tento nástroj?')) {
+				this.deleteTool(this.tool.id).then(() => {
 					return this.$router.push({
-						name: 'lab-list'
+						name: 'tool-list'
 					});
 				});
 			}
@@ -117,7 +117,7 @@ export default defineComponent({
 		// initial loader
 		this.loading = true;
 		// fetch data from BE
-		this.fetchLab(this.$route.params.id).finally(() => {
+		this.fetchTool(this.$route.params.id).finally(() => {
 			this.loading = false;
 		});
 	},

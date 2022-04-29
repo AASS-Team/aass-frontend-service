@@ -3,9 +3,9 @@
 
 	<div class="flex flex-row">
 		<router-link
-			to="/"
-			class="mb-5 mr-5"
-		>
+			:to="{ name: 'tool-list' }"
+			class="mb-5 mr-5"		
+			>
 			<div
 				class="flex flex-col bg-white h-64 w-64 pt-12 items-center group"
 			>

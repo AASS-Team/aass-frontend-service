@@ -7,7 +7,7 @@ module.exports = {
 	productionSourceMap: false,
 	lintOnSave: false,
 	devServer: {
-		port: 8080
+		port: 8080,
 	},
 	configureWebpack: {
 		resolve: {
@@ -22,4 +22,4 @@ module.exports = {
 			return args;
 		});
 	}
-};
+}

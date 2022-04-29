@@ -1,10 +1,13 @@
 import { createStore } from 'vuex';
 import { store as AppStore } from '@/store/app/app.store';
 import { store as LabStore } from '@/store/lab/lab.store';
+import { store as ToolStore } from '@/store/tool/tool.store';
+
 
 export default createStore({
 	modules: {
 		AppStore,
-		LabStore
+		LabStore,
+		ToolStore
 	}
 });
