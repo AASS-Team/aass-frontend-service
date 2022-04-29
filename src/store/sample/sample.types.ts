@@ -1,4 +1,5 @@
 import {User} from "@/store/user/user.types";
+import {Grant} from "@/store/grant/grant.types";
 
 export interface Sample {
 	id: string;
@@ -6,6 +7,7 @@ export interface Sample {
 	note: string;
 	amount: number;
 	user: User;
+	grant: Grant;
 	created_at: string;
 }
 

@@ -33,7 +33,7 @@ const routes: Array<RouteRecordRaw> = [
 					},
 					{
 						path: ':id',
-						name: 'sample-detail',
+						name: 'samples-detail',
 						meta: {
 							title: 'Detail vzorky'
 						},
@@ -64,7 +64,7 @@ const routes: Array<RouteRecordRaw> = [
 						component: () =>
 							import
 								(
-								/* webpackChunkName: "SampleList" */ '@/views/Sample/SampleCreate.vue'
+								/* webpackChunkName: "SampleList" */ '@/views/Sample/SampleEdit.vue'
 								)
 					},
 
