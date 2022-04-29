@@ -73,6 +73,56 @@ const routes: Array<RouteRecordRaw> = [
 
 			},
 			{
+				path: '/analyses',
+				component: RouterView,
+				children: [
+					{
+						path: '',
+						name: 'analysis-list',
+						meta: {
+							title: 'Laboratória'
+						},
+						component: () =>
+							import(
+								/* webpackChunkName: "AnalysisList" */ '@/views/Analysis/AnalysisList.vue'
+							)
+					},
+					{
+						path: 'new',
+						name: 'analysis-new',
+						meta: {
+							title: 'Nové laboratórium'
+						},
+						component: () =>
+							import(
+								/* webpackChunkName: "AnalysisCreate" */ '@/views/Analysis/AnalysisCreate.vue'
+							)
+					},
+					{
+						path: ':id',
+						name: 'analysis-detail',
+						meta: {
+							title: 'Detail laboratória'
+						},
+						component: () =>
+							import(
+								/* webpackChunkName: "AnalysisDetail" */ '@/views/Analysis/AnalysisDetail.vue'
+							)
+					},
+					{
+						path: ':id/edit',
+						name: 'analysis-edit',
+						meta: {
+							title: 'Upraviť laboratórium'
+						},
+						component: () =>
+							import(
+								/* webpackChunkName: "AnalysisEdit" */ '@/views/Analysis/AnalysisEdit.vue'
+							)
+					},
+				]
+			},
+			{
 				path: '/grants',
 					component: RouterView,
 					children: [

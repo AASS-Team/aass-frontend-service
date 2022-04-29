@@ -3,10 +3,10 @@
 		<select
 			class="bg-gray-300 focus:outline-none block w-full p-2 hover:cursor-pointer"
 			style="
-                -moz-appearance: none;
-                -webkit-appearance: none;
-                appearance: none;
-            "
+				-moz-appearance: none;
+				-webkit-appearance: none;
+				appearance: none;
+			"
 			:name="name"
 			:required="required"
 		>

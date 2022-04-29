@@ -4,3 +4,8 @@ export interface User {
     last_name: string;
     email: string;
 }
+
+export interface State {
+	users: User[];
+	user: User;
+}

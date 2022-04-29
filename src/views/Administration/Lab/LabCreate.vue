@@ -18,6 +18,12 @@
 					labelFor="address"
 					class="mt-10"
 				>
+					<span
+						v-if="this.loading"
+						class="inline-block bg-gray-200 w-1/4 h-full opacity-50"
+					>
+						&nbsp;
+					</span>
 					<input
 						:value="lab.address"
 						name="address"
