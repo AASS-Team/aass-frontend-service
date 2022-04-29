@@ -102,7 +102,7 @@ const routes: Array<RouteRecordRaw> = [
 								},
 								component: () =>
 									import(
-										'@/views/Administration/Tool/ToolList.vue'
+										/* webpackChunkName: "ToolList" */ '@/views/Administration/Tool/ToolList.vue'
 									)
 							},
 							{
@@ -113,7 +113,7 @@ const routes: Array<RouteRecordRaw> = [
 								},
 								component: () =>
 									import(
-										'@/views/Administration/Tool/ToolDetail.vue'
+										/* webpackChunkName: "ToolDetail" */ '@/views/Administration/Tool/ToolDetail.vue'
 									)
 							},
 							{
@@ -124,7 +124,7 @@ const routes: Array<RouteRecordRaw> = [
 								},
 								component: () =>
 									import(
-										'@/views/Administration/Tool/ToolCreate.vue'
+										/* webpackChunkName: "ToolCreate" */ '@/views/Administration/Tool/ToolCreate.vue'
 									)
 							},
 							{
@@ -135,7 +135,7 @@ const routes: Array<RouteRecordRaw> = [
 								},
 								component: () =>
 									import(
-										/* webpackChunkName: "LabEdit" */ '@/views/Administration/Tool/ToolEdit.vue'
+										/* webpackChunkName: "ToolEdit" */ '@/views/Administration/Tool/ToolEdit.vue'
 									)
 							},
 						]
