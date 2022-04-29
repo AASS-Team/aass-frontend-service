@@ -3,11 +3,13 @@ import { store as AppStore } from '@/store/app/app.store';
 import { store as LabStore } from '@/store/lab/lab.store';
 import { store as ToolStore } from '@/store/tool/tool.store';
 
+import { store as GrantStore } from '@/store/grant/grant.store';
 
 export default createStore({
 	modules: {
 		AppStore,
 		LabStore,
-		ToolStore
+		ToolStore,
+		GrantStore
 	}
 });
