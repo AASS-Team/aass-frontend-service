@@ -1,7 +1,7 @@
 <template>
 	<div class="bg-white rounded-lg">
 		<div class="p-4 pl-6 flex justify-between">
-			<h1 class="text-2xl">Laboratóriá</h1>
+			<h1 class="text-2xl">Nástroje</h1>
 			<div class="flex justify-end">
 				<UiSearch
 					:extendable="true"
@@ -10,8 +10,8 @@
 				<UiButton
 					:icon="{ type: ['fas', 'plus'] }"
 					class="primary rounded-full"
-					text="Pridať laboratórium"
-					@click="$router.push({ name: 'lab-new' })"
+					text="Pridať nástroj"
+					@click="$router.push({ name: 'tool-new' })"
 				/>
 			</div>
 		</div>
@@ -34,7 +34,7 @@
 					class="py-3 border-b border-gray-200"
 					:class="[tableRowsClassObject(options, 2)]"
 				>
-					{{ item.address }}
+					{{ item.type }}
 				</td>
 				<td
 					class="py-3"
@@ -53,7 +53,7 @@ import UiButton from '@/components/ui/UiButton.vue';
 import UiSearch from '@/components/ui/UiSearch.vue';
 import UiTable from '@/components/ui/UiTable.vue';
 import { TableOptions } from '@/types/table-options.type';
-import { Lab } from '@/store/lab/lab.types';
+import { Tool } from '@/store/tool/tool.types';
 import { mapActions, mapGetters } from 'vuex';
 import UiTableMixin from '@/mixins/UiTable.mixin';
 import UiStatusIcon from '@/components/ui/UiStatusIcon.vue';
@@ -67,23 +67,24 @@ export default defineComponent({
 		UiStatusIcon
 	},
 	mixins: [UiTableMixin, MapAvailable],
+
 	data() {
 		return {
 			loading: true
 		};
 	},
 	computed: {
-		...mapGetters('LabStore', ['labs']),
-		options(): TableOptions<Lab> {
+		...mapGetters('ToolStore', ['tools']),
+		options(): TableOptions<Tool> {
 			return {
 				data: {
-					items: this.labs,
-					onClick: lab =>
+					items: this.tools,
+					onClick: tool =>
 						this.$router.push({
-							name: 'lab-detail',
-							params: { id: lab.id }
+							name: 'tool-detail',
+							params: { id: tool.id }
 						}),
-					empty: 'Ľutujeme, nenašli sa žiadne laboratória',
+					empty: 'Ľutujeme, nenašiel sa žiaden nástroj',
 					loading: this.loading
 				},
 				header: {
@@ -92,7 +93,7 @@ export default defineComponent({
 							name: ''
 						},
 						{ name: 'názov' },
-						{ name: 'adresa' },
+						{ name: 'typ' },
 						{ name: 'stav' }
 					]
 				},
@@ -104,13 +105,13 @@ export default defineComponent({
 		}
 	},
 	methods: {
-		...mapActions('LabStore', ['fetchLabs', 'resetState'])
+		...mapActions('ToolStore', ['fetchTools', 'resetState'])
 	},
 	mounted: function () {
 		// initial loader
 		this.loading = true;
 		// fetch data from BE
-		return this.fetchLabs().finally(() => {
+		return this.fetchTools().finally(() => {
 			this.loading = false;
 		});
 	},

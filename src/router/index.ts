@@ -73,6 +73,56 @@ const routes: Array<RouteRecordRaw> = [
 
 			},
 			{
+				path: '/grants',
+					component: RouterView,
+					children: [
+						{
+							path: '',
+							name: 'grant-list',
+							meta: {
+								title: 'Granty'
+							},
+							component: () =>
+								import(
+									/* webpackChunkName: "GrantList" */ '@/views/Grant/GrantList.vue'
+								)
+						},
+						{
+							path: 'new',
+							name: 'grant-new',
+							meta: {
+								title: 'Nový grant'
+							},
+							component: () =>
+								import(
+									/* webpackChunkName: "GrantCreate" */ '@/views/Grant/GrantCreate.vue'
+								)
+						},
+						{
+							path: ':id',
+							name: 'grant-detail',
+							meta: {
+								title: 'Detail grantu'
+							},
+							component: () =>
+								import(
+									/* webpackChunkName: "GrantDetail" */ '@/views/Grant/GrantDetail.vue'
+								)
+						},
+						{
+							path: ':id/edit',
+							name: 'grant-edit',
+							meta: {
+								title: 'Upraviť grant'
+							},
+							component: () =>
+								import(
+									/* webpackChunkName: "GrantEdit" */ '@/views/Grant/GrantEdit.vue'
+								)
+						}
+					]
+			},
+			{
 				path: '/administration',
 				component: RouterView,
 				children: [
@@ -133,7 +183,57 @@ const routes: Array<RouteRecordRaw> = [
 									import(
 										/* webpackChunkName: "LabEdit" */ '@/views/Administration/Lab/LabEdit.vue'
 									)
-							}
+							},
+						]
+					},
+					{
+						path: 'tools',
+						component: RouterView,
+						children: [
+							{
+								path: '',
+								name: 'tool-list',
+								meta: {
+									title: 'Nástroje'
+								},
+								component: () =>
+									import(
+										/* webpackChunkName: "ToolList" */ '@/views/Administration/Tool/ToolList.vue'
+									)
+							},
+							{
+								path: ':id',
+								name: 'tool-detail',
+								meta: {
+									title: 'Detail nástroja'
+								},
+								component: () =>
+									import(
+										/* webpackChunkName: "ToolDetail" */ '@/views/Administration/Tool/ToolDetail.vue'
+									)
+							},
+							{
+								path: 'new',
+								name: 'tool-new',
+								meta: {
+									title: 'Nový nástroj'
+								},
+								component: () =>
+									import(
+										/* webpackChunkName: "ToolCreate" */ '@/views/Administration/Tool/ToolCreate.vue'
+									)
+							},
+							{
+								path: ':id/edit',
+								name: 'tool-edit',
+								meta: {
+									title: 'Upraviť nástroj'
+								},
+								component: () =>
+									import(
+										/* webpackChunkName: "ToolEdit" */ '@/views/Administration/Tool/ToolEdit.vue'
+									)
+							},
 						]
 					}
 				]

@@ -1,7 +1,7 @@
 <template>
 	<div class="bg-white rounded-lg">
 		<div class="p-4 pl-6 flex justify-between">
-			<h1 class="text-2xl">Laboratóriá</h1>
+			<h1 class="text-2xl">Granty</h1>
 			<div class="flex justify-end">
 				<UiSearch
 					:extendable="true"
@@ -10,8 +10,8 @@
 				<UiButton
 					:icon="{ type: ['fas', 'plus'] }"
 					class="primary rounded-full"
-					text="Pridať laboratórium"
-					@click="$router.push({ name: 'lab-new' })"
+					text="Pridať grant"
+					@click="$router.push({ name: 'grant-new' })"
 				/>
 			</div>
 		</div>
@@ -22,25 +22,7 @@
 					class="py-3 border-b border-gray-200"
 					:class="[tableRowsClassObject(options, 0)]"
 				>
-					<UiStatusIcon :available="item.available" />
-				</td>
-				<td
-					class="py-3 border-b border-gray-200"
-					:class="[tableRowsClassObject(options, 1)]"
-				>
 					{{ item.name }}
-				</td>
-				<td
-					class="py-3 border-b border-gray-200"
-					:class="[tableRowsClassObject(options, 2)]"
-				>
-					{{ item.address }}
-				</td>
-				<td
-					class="py-3"
-					:class="[tableRowsClassObject(options, 3)]"
-				>
-					{{ mapAvailable(item.available) }}
 				</td>
 			</template>
 		</UiTable>
@@ -53,64 +35,56 @@ import UiButton from '@/components/ui/UiButton.vue';
 import UiSearch from '@/components/ui/UiSearch.vue';
 import UiTable from '@/components/ui/UiTable.vue';
 import { TableOptions } from '@/types/table-options.type';
-import { Lab } from '@/store/lab/lab.types';
+import { Grant } from '@/store/grant/grant.types';
 import { mapActions, mapGetters } from 'vuex';
 import UiTableMixin from '@/mixins/UiTable.mixin';
-import UiStatusIcon from '@/components/ui/UiStatusIcon.vue';
-import MapAvailable from '@/mixins/MapAvailable.mixin';
 
 export default defineComponent({
 	components: {
 		UiButton,
 		UiSearch,
-		UiTable,
-		UiStatusIcon
+		UiTable
 	},
-	mixins: [UiTableMixin, MapAvailable],
+	mixins: [UiTableMixin],
 	data() {
 		return {
 			loading: true
 		};
 	},
 	computed: {
-		...mapGetters('LabStore', ['labs']),
-		options(): TableOptions<Lab> {
+		...mapGetters('GrantStore', ['grants']),
+		options(): TableOptions<Grant> {
 			return {
 				data: {
-					items: this.labs,
-					onClick: lab =>
+					items: this.grants,
+					onClick: grant =>
 						this.$router.push({
-							name: 'lab-detail',
-							params: { id: lab.id }
+							name: 'grant-detail',
+							params: { id: grant.id }
 						}),
-					empty: 'Ľutujeme, nenašli sa žiadne laboratória',
+					empty: 'Ľutujeme, nenašli sa žiadne granty',
 					loading: this.loading
 				},
 				header: {
 					items: [
-						{
-							name: ''
-						},
-						{ name: 'názov' },
-						{ name: 'adresa' },
-						{ name: 'stav' }
+						{ name: 'názov grantu'},
 					]
+					
 				},
 				layout: [
-					{ width: 8 },
-					{ width: 96, 'width-sm': 64, left: true }
+					{left: true }
 				]
 			};
 		}
 	},
 	methods: {
-		...mapActions('LabStore', ['fetchLabs', 'resetState'])
+		...mapActions('GrantStore', ['fetchGrants', 'resetState'])
 	},
 	mounted: function () {
 		// initial loader
 		this.loading = true;
 		// fetch data from BE
-		return this.fetchLabs().finally(() => {
+		return this.fetchGrants().finally(() => {
 			this.loading = false;
 		});
 	},
