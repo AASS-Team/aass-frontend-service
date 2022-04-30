@@ -17,14 +17,60 @@ const routes: Array<RouteRecordRaw> = [
 		children: [
 			{
 				path: '/samples',
-				name: 'sample-list',
-				meta: {
-					title: 'Vzorky'
-				},
-				component: () =>
-					import(
-						/* webpackChunkName: "SampleList" */ '@/views/Sample/SampleList.vue'
-					)
+				component: RouterView,
+				children: [
+					{
+						path: '',
+						name: 'sample-list',
+						meta: {
+							title: 'Vzorky'
+						},
+						component: () =>
+							import
+								(
+								/* webpackChunkName: "SampleList" */ '@/views/Sample/SampleList.vue'
+								)
+					},
+					{
+						path: ':id',
+						name: 'samples-detail',
+						meta: {
+							title: 'Detail vzorky'
+						},
+						component: () =>
+							import
+								(
+								/* webpackChunkName: "SampleDetail" */ '@/views/Sample/SampleDetail.vue'
+								)
+					},
+					{
+						path: 'new',
+						name: 'sample-new',
+						meta: {
+							title: 'Nová vzorka'
+						},
+						component: () =>
+							import
+								(
+								/* webpackChunkName: "SampleCreate" */ '@/views/Sample/SampleCreate.vue'
+								)
+					},
+					{
+						path: ':id/edit',
+						name: 'sample-edit',
+						meta: {
+							title: 'Upraviť vzorku'
+						},
+						component: () =>
+							import
+								(
+								/* webpackChunkName: "SampleEdit" */ '@/views/Sample/SampleEdit.vue'
+								)
+					},
+
+				]
+
+
 			},
 			{
 				path: '/grants',
