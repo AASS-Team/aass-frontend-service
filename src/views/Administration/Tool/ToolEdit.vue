@@ -11,12 +11,12 @@
 				>
 					&nbsp;
 				</span>
-				<input
+				<UiInput
 					v-else
 					:value="tool.name"
 					name="name"
 					type="text"
-					class="text-2xl border-b-2 border-gray-300 focus:outline-none focus:border-yellow-500 w-1/3"
+					class="header"
 					required
 				/>
 
@@ -31,11 +31,11 @@
 					>
 						&nbsp;
 					</span>
-					<input
+					<UiInput
 						v-else
-						:value="tool.type"
-						name="type"
-						class="text-gray-700 w-1/3 bg-gray-300 p-2 rounded focus:outline-none placeholder-gray-500"
+						v-model="tool.type"
+						name="address"
+						type="text"
 						required
 					/>
 				</UiLabel>
@@ -63,11 +63,13 @@ import { defineComponent } from 'vue';
 import UiButton from '@/components/ui/UiButton.vue';
 import UiLabel from '@/components/ui/UiLabel.vue';
 import { mapActions, mapGetters } from 'vuex';
+import UiInput from '@/components/ui/UiInput.vue';
 
 export default defineComponent({
 	components: {
 		UiButton,
-		UiLabel
+		UiLabel,
+		UiInput
 	},
 	data: () => {
 		return {
@@ -84,15 +86,16 @@ export default defineComponent({
 		handleSubmit() {
 			this.saving = true;
 			if ((this.$refs.form as HTMLFormElement).checkValidity()) {
-				return this.updateTool({ id: this.tool.id, tool: this.tool }).then(
-					() => {
-						this.saving = false;
-						return this.$router.push({
-							name: 'tool-detail',
-							params: { id: this.tool.id }
-						});
-					}
-				);
+				return this.updateTool({
+					id: this.tool.id,
+					tool: this.tool
+				}).then(() => {
+					this.saving = false;
+					return this.$router.push({
+						name: 'tool-detail',
+						params: { id: this.tool.id }
+					});
+				});
 			} else {
 				this.saving = false;
 				(this.$refs.form as HTMLFormElement).reportValidity();

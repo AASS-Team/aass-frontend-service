@@ -10,8 +10,8 @@
 					labelFor="first_name"
 				>
 					<UiInput
+						v-model="user.first_name"
 						type="text"
-						:value="user.first_name"
 						required
 						name="first_name"
 					>
@@ -23,8 +23,8 @@
 					labelFor="last_name"
 				>
 					<UiInput
+						v-model="user.last_name"
 						type="text"
-						:value="user.last_name"
 						required
 						name="last_name"
 					>
@@ -36,8 +36,8 @@
 					labelFor="email"
 				>
 					<UiInput
+						v-model="user.email"
 						type="text"
-						:value="user.email"
 						required
 						name="email"
 					>
@@ -77,10 +77,7 @@ export default defineComponent({
 	data() {
 		return {
 			saving: false,
-			user: {
-				name: undefined,
-				address: undefined
-			},
+			user: {}
 		};
 	},
 	methods: {
