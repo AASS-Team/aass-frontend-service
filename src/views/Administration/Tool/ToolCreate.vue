@@ -6,7 +6,7 @@
 				@submit.prevent="handleSubmit"
 			>
 				<input
-					:value="tool.name"
+					v-model="tool.name"
 					name="name"
 					type="text"
 					class="text-2xl border-b-2 border-gray-300 focus:outline-none focus:border-yellow-500 w-1/3"
@@ -20,7 +20,7 @@
 					class="mt-10"
 				>
 					<input
-						:value="tool.type"
+						v-model="tool.type"
 						name="type"
 						class="text-gray-700 w-1/3 bg-gray-300 p-2 rounded focus:outline-none placeholder-gray-500"
 						required
