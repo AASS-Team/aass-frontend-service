@@ -11,12 +11,12 @@
 				>
 					&nbsp;
 				</span>
-				<input
+				<UiInput
 					v-else
 					v-model="grant.name"
 					name="name"
 					type="text"
-					class="text-2xl border-b-2 border-gray-300 focus:outline-none focus:border-yellow-500 w-1/3"
+					class="header"
 					required
 				/>
 
@@ -42,10 +42,12 @@
 import { defineComponent } from 'vue';
 import UiButton from '@/components/ui/UiButton.vue';
 import { mapActions, mapGetters } from 'vuex';
+import UiInput from '@/components/ui/UiInput.vue';
 
 export default defineComponent({
 	components: {
-		UiButton
+		UiButton,
+		UiInput
 	},
 	data: () => {
 		return {
@@ -57,20 +59,25 @@ export default defineComponent({
 		...mapGetters('GrantStore', ['grant'])
 	},
 	methods: {
-		...mapActions('GrantStore', ['fetchGrant', 'updateGrant', 'resetState']),
+		...mapActions('GrantStore', [
+			'fetchGrant',
+			'updateGrant',
+			'resetState'
+		]),
 		...mapActions('AppStore', ['setAlert']),
 		handleSubmit() {
 			this.saving = true;
 			if ((this.$refs.form as HTMLFormElement).checkValidity()) {
-				return this.updateGrant({ id: this.grant.id, grant: this.grant }).then(
-					() => {
-						this.saving = false;
-						return this.$router.push({
-							name: 'grant-detail',
-							params: { id: this.grant.id }
-						});
-					}
-				);
+				return this.updateGrant({
+					id: this.grant.id,
+					grant: this.grant
+				}).then(() => {
+					this.saving = false;
+					return this.$router.push({
+						name: 'grant-detail',
+						params: { id: this.grant.id }
+					});
+				});
 			} else {
 				this.saving = false;
 				(this.$refs.form as HTMLFormElement).reportValidity();

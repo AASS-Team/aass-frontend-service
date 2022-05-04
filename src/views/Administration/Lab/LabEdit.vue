@@ -11,12 +11,11 @@
 				>
 					&nbsp;
 				</span>
-				<input
-					v-else
+				<UiInput
 					v-model="lab.name"
 					name="name"
 					type="text"
-					class="text-2xl border-b-2 border-gray-300 focus:outline-none focus:border-yellow-500 w-1/3"
+					class="header"
 					required
 				/>
 
@@ -31,11 +30,11 @@
 					>
 						&nbsp;
 					</span>
-					<input
+					<UiInput
 						v-else
 						v-model="lab.address"
 						name="address"
-						class="text-gray-700 w-1/3 bg-gray-300 p-2 rounded focus:outline-none placeholder-gray-500"
+						type="text"
 						required
 					/>
 				</UiLabel>
@@ -63,11 +62,13 @@ import { defineComponent } from 'vue';
 import UiButton from '@/components/ui/UiButton.vue';
 import UiLabel from '@/components/ui/UiLabel.vue';
 import { mapActions, mapGetters } from 'vuex';
+import UiInput from '@/components/ui/UiInput.vue';
 
 export default defineComponent({
 	components: {
 		UiButton,
-		UiLabel
+		UiLabel,
+		UiInput
 	},
 	data: () => {
 		return {

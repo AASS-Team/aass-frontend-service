@@ -5,13 +5,13 @@
 				ref="form"
 				@submit.prevent="handleSubmit"
 			>
-				<input
-					:value="sample.name"
+				<UiInput
+					v-model="sample.name"
 					name="name"
 					type="text"
-					class="text-2xl border-b-2 border-gray-300 focus:outline-none focus:border-yellow-500 w-1/3"
-					required
+					class="header"
 					placeholder="Nepomenovaná vzorka"
+					required
 				/>
 
 				<UiLabel
@@ -23,7 +23,8 @@
 						name="user"
 						:options="users"
 						class="text-gray-700 w-1/4"
-						required>
+						required
+					>
 					</UiSelect>
 				</UiLabel>
 
@@ -35,24 +36,27 @@
 					<UiSelect
 						name="grant"
 						:options="grants"
-						class="text-gray-700 w-1/4">
+						class="text-gray-700 w-1/4"
+					>
 					</UiSelect>
-					<span
-						class="ml-3 text-gray-500 text-sm ">(v prípade že ste samoplatca, túto možnosť nevyberajte)</span>
+					<span class="ml-3 text-gray-500 text-sm"
+						>(v prípade že ste samoplatca, túto možnosť
+						nevyberajte)</span
+					>
 				</UiLabel>
 
 				<UiLabel
 					text="Množstvo"
 					labelFor="amount"
-					class="2 items-center"
+					class="items-center"
 				>
-					<input
-						:value="sample.amount"
+					<UiInput
+						v-model="sample.amount"
 						name="amount"
-						class="text-gray-700 w-1/3 bg-gray-300 p-2 rounded focus:outline-none placeholder-gray-500"
+						type="text"
 						required
 					/>
-					<span class="ml-3 text-gray-500 text-sm ">ml</span>
+					<span class="ml-3 text-gray-500 text-sm">ml</span>
 				</UiLabel>
 
 				<UiLabel
@@ -61,11 +65,10 @@
 					class="mt-2"
 				>
 					<textarea
-						:value="sample.note"
+						v-model="sample.note"
 						name="note"
 						class="text-gray-700 w-2/3 bg-gray-300 p-2 rounded focus:outline-none placeholder-gray-500"
 					/>
-
 				</UiLabel>
 
 				<div class="flex flex-row justify-end mt-5">
@@ -86,17 +89,19 @@
 </template>
 
 <script lang="ts">
-import {defineComponent} from 'vue';
+import { defineComponent } from 'vue';
 import UiButton from '@/components/ui/UiButton.vue';
 import UiLabel from '@/components/ui/UiLabel.vue';
-import {mapActions} from 'vuex';
-import UiSelect from "@/components/ui/UiSelect.vue";
+import { mapActions } from 'vuex';
+import UiSelect from '@/components/ui/UiSelect.vue';
+import UiInput from '@/components/ui/UiInput.vue';
 
 export default defineComponent({
 	components: {
 		UiSelect,
 		UiButton,
-		UiLabel
+		UiLabel,
+		UiInput
 	},
 	data() {
 		return {
@@ -117,17 +122,17 @@ export default defineComponent({
 					first_name: 'Petra',
 					last_name: 'Hroncova',
 					email: 'petra@gmail.com'
-				},
+				}
 			],
 			grants: [
 				{
 					id: 'f7d9caf4-9101-4fe5-859a-f286272640a3',
-					name: 'NBU',
+					name: 'NBU'
 				},
 				{
 					id: 'f7d9caf4-9101-4fe5-859a-f286272640b3',
-					name: 'STU',
-				},
+					name: 'STU'
+				}
 			]
 		};
 	},

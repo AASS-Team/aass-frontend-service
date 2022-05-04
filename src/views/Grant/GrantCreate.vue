@@ -5,11 +5,12 @@
 				ref="form"
 				@submit.prevent="handleSubmit"
 			>
-				<input
+				<UiInput
 					v-model="grant.name"
 					name="name"
 					type="text"
-					class="text-2xl border-b-2 border-gray-300 focus:outline-none focus:border-yellow-500 w-1/3"
+					class="header"
+					placeholder="Nepomenovaný grant"
 					required
 				/>
 
@@ -34,10 +35,12 @@
 import { defineComponent } from 'vue';
 import UiButton from '@/components/ui/UiButton.vue';
 import { mapActions } from 'vuex';
+import UiInput from '@/components/ui/UiInput.vue';
 
 export default defineComponent({
 	components: {
-		UiButton
+		UiButton,
+		UiInput
 	},
 	data() {
 		return {

@@ -3,7 +3,7 @@
 		<div class="p-4 pl-6">
 			<UiLabel
 				text="Meno"
-				key="meno"
+				labelFor="first_name"
 			>
 				<span
 					v-if="this.loading"
@@ -11,16 +11,14 @@
 				>
 					&nbsp;
 				</span>
-				<p
-					v-else
-				>
+				<p v-else>
 					{{ user.first_name }}
 				</p>
 			</UiLabel>
 
 			<UiLabel
 				text="Priezvisko"
-				key="priezvisko"
+				labelFor="last_name"
 			>
 				<span
 					v-if="this.loading"
@@ -28,16 +26,14 @@
 				>
 					&nbsp;
 				</span>
-				<p
-					v-else
-				>
+				<p v-else>
 					{{ user.last_name }}
 				</p>
 			</UiLabel>
 
 			<UiLabel
 				text="E-mail"
-				key="email"
+				labelFor="email"
 			>
 				<span
 					v-if="this.loading"
@@ -45,13 +41,10 @@
 				>
 					&nbsp;
 				</span>
-				<p
-					v-else
-				>
+				<p v-else>
 					{{ user.email }}
 				</p>
 			</UiLabel>
-
 
 			<div class="flex flex-row justify-end mt-5">
 				<UiButton

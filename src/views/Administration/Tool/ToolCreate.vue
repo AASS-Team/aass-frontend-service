@@ -5,13 +5,13 @@
 				ref="form"
 				@submit.prevent="handleSubmit"
 			>
-				<input
+				<UiInput
 					v-model="tool.name"
 					name="name"
 					type="text"
-					class="text-2xl border-b-2 border-gray-300 focus:outline-none focus:border-yellow-500 w-1/3"
-					required
+					class="header"
 					placeholder="Nepomenovaný nástroj"
+					required
 				/>
 
 				<UiLabel
@@ -19,10 +19,10 @@
 					labelFor="type"
 					class="mt-10"
 				>
-					<input
+					<UiInput
 						v-model="tool.type"
 						name="type"
-						class="text-gray-700 w-1/3 bg-gray-300 p-2 rounded focus:outline-none placeholder-gray-500"
+						type="text"
 						required
 					/>
 				</UiLabel>
@@ -49,11 +49,13 @@ import { defineComponent } from 'vue';
 import UiButton from '@/components/ui/UiButton.vue';
 import UiLabel from '@/components/ui/UiLabel.vue';
 import { mapActions } from 'vuex';
+import UiInput from '@/components/ui/UiInput.vue';
 
 export default defineComponent({
 	components: {
 		UiButton,
-		UiLabel
+		UiLabel,
+		UiInput
 	},
 	data() {
 		return {

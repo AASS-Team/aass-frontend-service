@@ -13,7 +13,7 @@
 		<button
 			style="text-align: center"
 			:type="type"
-			@click="$emit('click')"
+			@click.stop="$emit('click')"
 			:disabled="this.disabled"
 		>
 			{{ text }}
