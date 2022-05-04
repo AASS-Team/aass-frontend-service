@@ -13,7 +13,7 @@
 				</span>
 				<input
 					v-else
-					:value="sample.name"
+					v-model="sample.name"
 					name="name"
 					type="text"
 					class="text-2xl border-b-2 border-gray-300 focus:outline-none focus:border-yellow-500 w-1/3"

@@ -5,6 +5,9 @@ import {
 	RootState
 } from '@/store/index.types';
 import { Actions, Getters, Grant, State } from '@/store/grant/grant.types';
+import axios from '@/services/axios';
+import { ResponseDataWrapper } from '@/types/response.type';
+import {Lab} from "@/store/lab/lab.types";
 
 const SET_GRANTS = 'set_grants';
 const SET_GRANT = 'set_grant';
@@ -24,26 +27,9 @@ const getters: GetterTreeAdaptor<Getters, State, RootState> = {
 
 const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 	fetchGrants({ commit, dispatch }) {
-		return new Promise<{ data: Grant[] }>(resolve => {
-			setTimeout(() => {
-				resolve({
-					data: [
-						{
-							id: '13ab4987-913e-4e4f-9aec-5f2c8cd1619e',
-							name: 'Dotácia z Európskej Únie'
-						},
-						{
-							id: '2cfdcd14-4e80-4dc3-9c1f-39181802378d',
-							name: 'Grant fondu FCHPT STU'
-						},
-						{
-							id: '47edc17c-f2b1-4462-8285-964e22bd8949',
-							name: 'Grant na výskum vedy a školstva'
-						}
-					]
-				});
-			}, 750);
-		})
+		return axios
+			.get<ResponseDataWrapper<Grant[]>>('/api/grants/')
+			.then(response => response.data)
 			.then(response => {
 				commit(SET_GRANTS, response.data);
 			})
@@ -62,16 +48,9 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 			});
 	},
 	fetchGrant({ commit, dispatch }, id) {
-		return new Promise<{ data: Grant }>(resolve => {
-			setTimeout(() => {
-				resolve({
-					data: {
-						id: '13ab4987-913e-4e4f-9aec-5f2c8cd1619e',
-						name: 'Dotácia z Európskej Únie'
-					}
-				});
-			}, 750);
-		})
+		return axios
+			.get<ResponseDataWrapper<Grant>>(`/api/grants/${id}`)
+			.then(response => response.data)
 			.then(response => {
 				commit(SET_GRANT, response.data);
 			})
@@ -90,16 +69,9 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 			});
 	},
 	saveGrant({ commit, dispatch }, grant) {
-		return new Promise<{ data: Grant }>(resolve => {
-			setTimeout(() => {
-				resolve({
-					data: {
-						id: Math.random().toString(),
-						name: grant.name
-					}
-				});
-			}, 750);
-		})
+		return axios
+			.post<ResponseDataWrapper<Grant>>(`/api/grants/`, grant)
+			.then(response => response.data)
 			.then(response => {
 				commit(ADD_GRANT, response.data);
 			})
@@ -118,16 +90,11 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 			});
 	},
 	updateGrant({ commit, dispatch }, { id, grant }) {
-		return new Promise<{ data: Grant }>(resolve => {
-			setTimeout(() => {
-				resolve({
-					data: {
-						id: id,
-						name: grant.name
-					}
-				});
-			}, 750);
-		})
+		return axios
+			.put<ResponseDataWrapper<Grant>>(`/api/grants/${id}`, {
+				name: grant.name,
+			})
+			.then(response => response.data)
 			.then(response => {
 				commit(UPDATE_GRANT, { id, grant: response.data });
 			})
@@ -146,11 +113,8 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 			});
 	},
 	deleteGrant({ commit, dispatch }, id) {
-		return new Promise(resolve => {
-			setTimeout(() => {
-				resolve(null);
-			}, 750);
-		})
+		return axios
+			.delete<void>(`/api/grants/${id}`)
 			.then(() => {
 				commit(DELETE_GRANT, id);
 			})

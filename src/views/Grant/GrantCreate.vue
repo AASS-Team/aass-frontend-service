@@ -6,7 +6,7 @@
 				@submit.prevent="handleSubmit"
 			>
 				<input
-					:value="grant.name"
+					v-model="grant.name"
 					name="name"
 					type="text"
 					class="text-2xl border-b-2 border-gray-300 focus:outline-none focus:border-yellow-500 w-1/3"
