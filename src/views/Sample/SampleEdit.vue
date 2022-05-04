@@ -11,12 +11,12 @@
 				>
 					&nbsp;
 				</span>
-				<input
+				<UiInput
 					v-else
 					v-model="sample.name"
 					name="name"
 					type="text"
-					class="text-2xl border-b-2 border-gray-300 focus:outline-none focus:border-yellow-500 w-1/3"
+					class="header"
 					required
 				/>
 
@@ -25,12 +25,20 @@
 					labelFor="user"
 					class="mt-10"
 				>
+					<span
+						v-if="this.loading"
+						class="inline-block bg-gray-200 w-1/4 h-full opacity-50"
+					>
+						&nbsp;
+					</span>
 					<UiSelect
+						v-else
 						name="user"
 						:options="users"
 						class="text-gray-700 w-1/4"
 						required
-						selected=sample.user.id>
+						selected="sample.user.id"
+					>
 					</UiSelect>
 				</UiLabel>
 
@@ -39,21 +47,30 @@
 					labelFor="grant"
 					class="2 items-center"
 				>
+					<span
+						v-if="this.loading"
+						class="inline-block bg-gray-200 w-1/4 h-full opacity-50"
+					>
+						&nbsp;
+					</span>
 					<UiSelect
+						v-else
 						name="grant"
 						:options="grants"
 						class="text-gray-700 w-1/4"
-						selected=sample.grant.id>
+						selected="sample.grant.id"
+					>
 					</UiSelect>
-					<span
-						class="ml-3 text-gray-500 text-sm ">(v prípade že ste samoplatca, túto možnosť nevyberajte)</span>
+					<span class="ml-3 text-gray-500 text-sm"
+						>(v prípade že ste samoplatca, túto možnosť
+						nevyberajte)</span
+					>
 				</UiLabel>
 
 				<UiLabel
 					text="Množtvo"
 					labelFor="amount"
-					class="mt-10 items-center "
-
+					class="items-center"
 				>
 					<span
 						v-if="this.loading"
@@ -61,20 +78,22 @@
 					>
 						&nbsp;
 					</span>
-					<input
+					<UiInput
 						v-else
-						:value="sample.amount"
-						name="address"
-						class="text-gray-700 w-1/3 bg-gray-300 p-2 rounded focus:outline-none placeholder-gray-500 "
+						v-model="sample.amount"
+						name="amount"
+						type="text"
 						required
 					/>
-					<span class="ml-3  text-gray-500 text-sm inline-block align-baseline ">ml</span>
+					<span
+						class="ml-3 text-gray-500 text-sm inline-block align-baseline"
+						>ml</span
+					>
 				</UiLabel>
 
 				<UiLabel
 					text="Poznámka"
 					labelFor="note"
-					class="mt-10"
 				>
 					<span
 						v-if="this.loading"
@@ -84,7 +103,7 @@
 					</span>
 					<textarea
 						v-else
-						:value="sample.note"
+						v-model="sample.note"
 						name="note"
 						class="text-gray-700 w-2/3 bg-gray-300 p-2 rounded focus:outline-none placeholder-gray-500"
 					/>
@@ -109,17 +128,19 @@
 </template>
 
 <script lang="ts">
-import {defineComponent} from 'vue';
+import { defineComponent } from 'vue';
 import UiButton from '@/components/ui/UiButton.vue';
 import UiLabel from '@/components/ui/UiLabel.vue';
-import UiSelect from "@/components/ui/UiSelect.vue";
-import {mapActions, mapGetters} from 'vuex';
+import UiSelect from '@/components/ui/UiSelect.vue';
+import { mapActions, mapGetters } from 'vuex';
+import UiInput from '@/components/ui/UiInput.vue';
 
 export default defineComponent({
 	components: {
 		UiButton,
 		UiLabel,
 		UiSelect,
+		UiInput
 	},
 	data: () => {
 		return {
@@ -137,18 +158,18 @@ export default defineComponent({
 					first_name: 'Petra',
 					last_name: 'Hroncova',
 					email: 'petra@gmail.com'
-				},
+				}
 			],
 			//TODO change to fetchgrant in future
 			grants: [
 				{
 					id: '123',
-					name: 'NBU',
+					name: 'NBU'
 				},
 				{
 					id: 'f7d9caf4-9101-4fe5-859a-f286272640b3',
-					name: 'STU',
-				},
+					name: 'STU'
+				}
 			]
 		};
 	},
@@ -156,21 +177,25 @@ export default defineComponent({
 		...mapGetters('SampleStore', ['sample'])
 	},
 	methods: {
-		...mapActions('SampleStore', ['fetchSample', 'updateSample', 'resetState']),
+		...mapActions('SampleStore', [
+			'fetchSample',
+			'updateSample',
+			'resetState'
+		]),
 		...mapActions('AppStore', ['setAlert']),
 		handleSubmit() {
 			this.saving = true;
 			if ((this.$refs.form as HTMLFormElement).checkValidity()) {
-				return this.updateSample({id: this.sample.id, sample: this.sample}).then(
-					() => {
-						this.saving = false;
-						return this.$router.push({
-							name: 'samples-detail',
-							params: {id: this.sample.id}
-						});
-
-					}
-				);
+				return this.updateSample({
+					id: this.sample.id,
+					sample: this.sample
+				}).then(() => {
+					this.saving = false;
+					return this.$router.push({
+						name: 'samples-detail',
+						params: { id: this.sample.id }
+					});
+				});
 			} else {
 				this.saving = false;
 				(this.$refs.form as HTMLFormElement).reportValidity();

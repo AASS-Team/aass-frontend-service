@@ -19,9 +19,8 @@
 					<UiInput
 						type="text"
 						v-else
-						:value="user.first_name"
+						v-model="user.first_name"
 						name="first_name"
-						class="text-gray-700 w-1/3 bg-gray-300 p-2 rounded focus:outline-none placeholder-gray-500"
 						required
 					/>
 				</UiLabel>
@@ -40,9 +39,8 @@
 					<UiInput
 						type="text"
 						v-else
-						:value="user.last_name"
+						v-model="user.last_name"
 						name="last_name"
-						class="text-gray-700 w-1/3 bg-gray-300 p-2 rounded focus:outline-none placeholder-gray-500"
 						required
 					/>
 				</UiLabel>
@@ -60,9 +58,8 @@
 					</span>
 					<UiInput
 						v-else
-						:value="user.email"
+						v-model="user.email"
 						name="email"
-						class="text-gray-700 w-1/3 bg-gray-300 p-2 rounded focus:outline-none placeholder-gray-500"
 						required
 						type="text"
 					/>
@@ -91,7 +88,7 @@ import { defineComponent } from 'vue';
 import UiButton from '@/components/ui/UiButton.vue';
 import UiLabel from '@/components/ui/UiLabel.vue';
 import { mapActions, mapGetters } from 'vuex';
-import UiInput from "@/components/ui/UiInput.vue";
+import UiInput from '@/components/ui/UiInput.vue';
 
 export default defineComponent({
 	components: {
@@ -102,7 +99,7 @@ export default defineComponent({
 	data: () => {
 		return {
 			saving: false,
-			loading: true,
+			loading: true
 		};
 	},
 	computed: {
