@@ -68,12 +68,10 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 			});
 	},
 	saveLab({ commit, dispatch }, lab) {
-		console.log('Lab: ', lab);
 		return axios
 			.post<ResponseDataWrapper<Lab>>(`/api/labs/`, lab)
 			.then(response => response.data)
 			.then(response => {
-				console.log('Response: ', response);
 				commit(ADD_LAB, response.data);
 			})
 			.catch(e => {
@@ -116,7 +114,7 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 	},
 	deleteLab({ commit, dispatch }, id) {
 		return axios
-			.delete<ResponseDataWrapper<Lab>>(`/api/labs/${id}`)
+			.delete<void>(`/api/labs/${id}`)
 			.then(() => {
 				commit(DELETE_LAB, id);
 			})
