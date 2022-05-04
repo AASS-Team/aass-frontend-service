@@ -5,6 +5,8 @@ import {
 	RootState
 } from '@/store/index.types';
 import { Actions, Getters, Tool, State } from '@/store/tool/tool.types';
+import axios from '@/services/axios';
+import { ResponseDataWrapper } from '@/types/response.type';
 
 const SET_TOOLS = 'set_tools';
 const SET_TOOL = 'set_tool';
@@ -24,44 +26,9 @@ const getters: GetterTreeAdaptor<Getters, State, RootState> = {
 
 const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 	fetchTools({ commit, dispatch }) {
-		return new Promise<{ data: Tool[] }>(resolve => {
-			setTimeout(() => {
-				resolve({
-					data: [
-						{
-							id: '13ab4987-913e-4e4f-9aec-5f2c8cd1619e',
-							name: 'Spektrometer DS213',
-							type: 'machine',
-							available: true
-						},
-						{
-							id: '2cfdcd14-4e80-4dc3-9c1f-39181802378d',
-							name: 'Pipeta veľká',
-							type: 'tool',
-							available: true
-						},
-						{
-							id: '431406e8-fbbd-4b54-a5cd-01173f681580',
-							name: 'Sekvenátor Medirex MX2',
-							type: 'machine',
-							available: false
-						},
-						{
-							id: '47edc17c-f2b1-4462-8285-964e22bd8949',
-							name: 'Pipeta veľká',
-							type: 'tool',
-							available: false
-						},
-						{
-							id: '7f62216a-9a82-420a-a6b6-0bb3a28685b6',
-							name: 'Centrifúga SRT HEMI',
-							type: 'machine',
-							available: true
-						}
-					]
-				});
-			}, 750);
-		})
+		return axios
+			.get<ResponseDataWrapper<Tool[]>>('/api/tools/')
+			.then(response => response.data)
 			.then(response => {
 				commit(SET_TOOLS, response.data);
 			})
@@ -80,18 +47,9 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 			});
 	},
 	fetchTool({ commit, dispatch }, id) {
-		return new Promise<{ data: Tool }>(resolve => {
-			setTimeout(() => {
-				resolve({
-					data: {
-						id: id,
-						name: 'Spektrometer DS213',
-						type: 'machine',
-						available: true
-					}
-				});
-			}, 750);
-		})
+		return axios
+			.get<ResponseDataWrapper<Tool>>(`/api/tools/${id}`)
+			.then(response => response.data)
 			.then(response => {
 				commit(SET_TOOL, response.data);
 			})
@@ -110,18 +68,9 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 			});
 	},
 	saveTool({ commit, dispatch }, tool) {
-		return new Promise<{ data: Tool }>(resolve => {
-			setTimeout(() => {
-				resolve({
-					data: {
-						id: Math.random().toString(),
-						name: tool.name,
-						type: tool.type,
-						available: true
-					}
-				});
-			}, 750);
-		})
+		return axios
+			.post<ResponseDataWrapper<Tool>>(`/api/tools/`, tool)
+			.then(response => response.data)
 			.then(response => {
 				commit(ADD_TOOL, response.data);
 			})
@@ -140,18 +89,12 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 			});
 	},
 	updateTool({ commit, dispatch }, { id, tool }) {
-		return new Promise<{ data: Tool }>(resolve => {
-			setTimeout(() => {
-				resolve({
-					data: {
-						id: id,
-						name: tool.name,
-						type: tool.type,
-						available: true
-					}
-				});
-			}, 750);
-		})
+		return axios
+			.put<ResponseDataWrapper<Tool>>(`/api/tools/${id}`, {
+				name: tool.name,
+				type: tool.type,
+			})
+			.then(response => response.data)
 			.then(response => {
 				commit(UPDATE_TOOL, { id, tool: response.data });
 			})
@@ -170,11 +113,8 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 			});
 	},
 	deleteTool({ commit, dispatch }, id) {
-		return new Promise(resolve => {
-			setTimeout(() => {
-				resolve(null);
-			}, 750);
-		})
+		return axios
+			.delete<ResponseDataWrapper<Tool>>(`/api/tools/${id}`)
 			.then(() => {
 				commit(DELETE_TOOL, id);
 			})

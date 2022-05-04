@@ -13,7 +13,7 @@
 				</span>
 				<UiInput
 					v-else
-					:value="tool.name"
+					v-model="tool.name"
 					name="name"
 					type="text"
 					class="header"
@@ -34,7 +34,7 @@
 					<UiInput
 						v-else
 						v-model="tool.type"
-						name="address"
+						name="type"
 						type="text"
 						required
 					/>
