@@ -13,7 +13,7 @@
 				</span>
 				<input
 					v-else
-					:value="lab.name"
+					v-model="lab.name"
 					name="name"
 					type="text"
 					class="text-2xl border-b-2 border-gray-300 focus:outline-none focus:border-yellow-500 w-1/3"
@@ -33,7 +33,7 @@
 					</span>
 					<input
 						v-else
-						:value="lab.address"
+						v-model="lab.address"
 						name="address"
 						class="text-gray-700 w-1/3 bg-gray-300 p-2 rounded focus:outline-none placeholder-gray-500"
 						required
