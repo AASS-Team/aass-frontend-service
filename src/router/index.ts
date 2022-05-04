@@ -123,6 +123,56 @@ const routes: Array<RouteRecordRaw> = [
 				]
 			},
 			{
+				path: '/users',
+				component: RouterView,
+				children: [
+					{
+						path: '',
+						name: 'user-list',
+						meta: {
+							title: 'Používatelia'
+						},
+						component: () =>
+							import(
+								/* webpackChunkName: "UserList" */ '@/views/User/UserList.vue'
+								)
+					},
+					{
+						path: 'new',
+						name: 'user-new',
+						meta: {
+							title: 'Nový používateľ'
+						},
+						component: () =>
+							import(
+								/* webpackChunkName: "UserCreate" */ '@/views/User/UserCreate.vue'
+								)
+					},
+					{
+						path: ':id',
+						name: 'user-detail',
+						meta: {
+							title: 'Detail používateľa'
+						},
+						component: () =>
+							import(
+								/* webpackChunkName: "UserDetail" */ '@/views/User/UserDetail.vue'
+								)
+					},
+					{
+						path: ':id/edit',
+						name: 'user-edit',
+						meta: {
+							title: 'Upraviť používateľa'
+						},
+						component: () =>
+							import(
+								/* webpackChunkName: "UserEdit" */ '@/views/User/UserEdit.vue'
+								)
+					},
+				]
+			},
+			{
 				path: '/grants',
 					component: RouterView,
 					children: [

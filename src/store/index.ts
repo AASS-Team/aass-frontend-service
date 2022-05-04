@@ -5,7 +5,7 @@ import { store as SampleStore } from '@/store/sample/sample.store';
 import { store as ToolStore } from '@/store/tool/tool.store';
 import { store as GrantStore } from '@/store/grant/grant.store';
 import { store as AnalysisStore } from '@/store/analysis/analysis.store'
-
+import { store as UserStore } from '@/store/user/user.store'
 
 export default createStore({
 	modules: {
@@ -15,5 +15,6 @@ export default createStore({
 		ToolStore,
 		GrantStore,
 		AnalysisStore,
+		UserStore
 	}
 });
