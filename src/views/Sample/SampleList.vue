@@ -18,22 +18,13 @@
 
 		<UiTable :options="options">
 			<template v-slot="item">
-				<td
-					class="py-3 border-b border-gray-200"
-					:class="[tableRowsClassObject(options, 0)]"
-				>
+				<td :class="[tableRowsClassObject(options, 0)]">
 					{{ item.name }}
 				</td>
-				<td
-					class="py-3 border-b border-gray-200"
-					:class="[tableRowsClassObject(options, 1)]"
-				>
-					{{ item.user.first_name + " " + item.user.last_name }}
+				<td :class="[tableRowsClassObject(options, 1)]">
+					{{ item.user.first_name + ' ' + item.user.last_name }}
 				</td>
-				<td
-					class="py-3"
-					:class="[tableRowsClassObject(options, 2)]"
-				>
+				<td :class="[tableRowsClassObject(options, 2)]">
 					{{ item.created_at }}
 				</td>
 			</template>
@@ -55,7 +46,7 @@ export default defineComponent({
 	components: {
 		UiButton,
 		UiSearch,
-		UiTable,
+		UiTable
 	},
 	mixins: [UiTableMixin],
 	data() {
@@ -84,9 +75,7 @@ export default defineComponent({
 						{ name: 'dátum' }
 					]
 				},
-				layout: [
-					{ width: 96, 'width-sm': 64, left: true },
-				]
+				layout: [{ width: 96, 'width-sm': 64, left: true }]
 			};
 		}
 	},

@@ -18,28 +18,16 @@
 
 		<UiTable :options="options">
 			<template v-slot="item">
-				<td
-					class="py-3 border-b border-gray-200"
-					:class="[tableRowsClassObject(options, 0)]"
-				>
+				<td :class="[tableRowsClassObject(options, 0)]">
 					<UiStatusIcon :available="item.available" />
 				</td>
-				<td
-					class="py-3 border-b border-gray-200"
-					:class="[tableRowsClassObject(options, 1)]"
-				>
+				<td :class="[tableRowsClassObject(options, 1)]">
 					{{ item.name }}
 				</td>
-				<td
-					class="py-3 border-b border-gray-200"
-					:class="[tableRowsClassObject(options, 2)]"
-				>
+				<td :class="[tableRowsClassObject(options, 2)]">
 					{{ item.type }}
 				</td>
-				<td
-					class="py-3"
-					:class="[tableRowsClassObject(options, 3)]"
-				>
+				<td :class="[tableRowsClassObject(options, 3)]">
 					{{ mapAvailable(item.available) }}
 				</td>
 			</template>

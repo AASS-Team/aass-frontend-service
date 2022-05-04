@@ -18,23 +18,13 @@
 
 		<UiTable :options="options">
 			<template v-slot="item">
-				<td
-					class="py-3 border-b border-gray-200"
-					:class="[tableRowsClassObject(options, 0)]"
-				>
-				</td>
-				<td
-					class="py-3 border-b border-gray-200"
-					:class="[tableRowsClassObject(options, 1)]"
-				>
+				<td :class="[tableRowsClassObject(options, 0)]"></td>
+				<td :class="[tableRowsClassObject(options, 1)]">
 					{{ item.sample.name }}
 				</td>
-				<td
-					class="py-3 border-b border-gray-200"
-					:class="[tableRowsClassObject(options, 2)]"
-				>
+				<td :class="[tableRowsClassObject(options, 2)]">
 					<UiStatusIcon :status="item.status" />
-					{{ mapStatus(item.status)}}
+					{{ mapStatus(item.status) }}
 				</td>
 			</template>
 		</UiTable>
@@ -51,7 +41,7 @@ import { Analysis } from '@/store/analysis/analysis.types';
 import { mapActions, mapGetters } from 'vuex';
 import UiTableMixin from '@/mixins/UiTable.mixin';
 import UiStatusIcon from '@/components/ui/UiStatusIcon.vue';
-import MapStatus from "@/mixins/MapStatus.mixin";
+import MapStatus from '@/mixins/MapStatus.mixin';
 
 export default defineComponent({
 	components: {
@@ -87,7 +77,7 @@ export default defineComponent({
 							name: ''
 						},
 						{ name: 'vzorka' },
-						{ name: 'stav' },
+						{ name: 'stav' }
 					]
 				},
 				layout: [

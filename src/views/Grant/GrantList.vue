@@ -18,10 +18,7 @@
 
 		<UiTable :options="options">
 			<template v-slot="item">
-				<td
-					class="py-3 border-b border-gray-200"
-					:class="[tableRowsClassObject(options, 0)]"
-				>
+				<td :class="[tableRowsClassObject(options, 0)]">
 					{{ item.name }}
 				</td>
 			</template>
@@ -66,14 +63,9 @@ export default defineComponent({
 					loading: this.loading
 				},
 				header: {
-					items: [
-						{ name: 'názov grantu'},
-					]
-					
+					items: [{ name: 'názov grantu' }]
 				},
-				layout: [
-					{left: true }
-				]
+				layout: [{ left: true }]
 			};
 		}
 	},

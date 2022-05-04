@@ -18,16 +18,10 @@
 
 		<UiTable :options="options">
 			<template v-slot="item">
-				<td
-					class="py-3 border-b border-gray-200"
-					:class="[tableRowsClassObject(options, 0)]"
-				>
-					{{ item.first_name + " " + item.last_name }}
+				<td :class="[tableRowsClassObject(options, 0)]">
+					{{ item.name }}
 				</td>
-				<td
-					class="py-3 border-b border-gray-200"
-					:class="[tableRowsClassObject(options, 1)]"
-				>
+				<td :class="[tableRowsClassObject(options, 1)]">
 					{{ item.email }}
 				</td>
 			</template>
@@ -49,7 +43,7 @@ export default defineComponent({
 	components: {
 		UiButton,
 		UiSearch,
-		UiTable,
+		UiTable
 	},
 	mixins: [UiTableMixin],
 	data() {
