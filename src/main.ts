@@ -2,6 +2,7 @@ import { createApp } from 'vue';
 import router from './router';
 import { RouterView } from 'vue-router';
 import store from './store';
+import axios from './services/axios';
 
 // Root styles
 import '@/assets/scss/app.scss';
@@ -11,7 +12,6 @@ import FontAwesomeIcon from '@/icons';
 import filters from '@/filters';
 
 // Third party global dependencies
-import axios from 'axios';
 import { VTooltip } from 'floating-vue';
 
 // Create Vue app
@@ -23,12 +23,8 @@ app.use(store);
 // Vue-router
 app.use(router);
 
-// Axios (to be addressed from script as this.$axios)
-const axiosInstance = axios.create({
-	baseURL: process.env.VUE_APP_API_URL
-});
-
-app.config.globalProperties.$axios = axiosInstance;
+// Make axios available in component & store scope
+app.config.globalProperties.$axios = axios;
 
 // Font Awesome icons
 app.component('fa-icon', FontAwesomeIcon);
