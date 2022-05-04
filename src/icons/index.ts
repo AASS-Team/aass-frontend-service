@@ -15,7 +15,8 @@ import {
 	faPlus,
 	faSearch,
 	faSpinner,
-	faTimes
+	faTimes,
+	faCaretDown
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -33,7 +34,8 @@ library.add(
 	faPlus,
 	faSearch,
 	faSpinner,
-	faTimes
+	faTimes,
+	faCaretDown
 );
 
 export default FontAwesomeIcon;

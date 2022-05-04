@@ -24,7 +24,7 @@ export default defineComponent({
 	},
 	props: {
 		status: {
-			type: Object as PropType<AnalysisStatus>
+			type: String as PropType<AnalysisStatus>
 		},
 		available: {
 			type: Boolean
