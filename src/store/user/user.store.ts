@@ -4,7 +4,13 @@ import {
 	GetterTreeAdaptor,
 	RootState
 } from '@/store/index.types';
-import { Actions, Getters, User, State } from '@/store/user/user.types';
+import {
+	Actions,
+	Getters,
+	User,
+	State,
+	UserGroup
+} from '@/store/user/user.types';
 import axios from '@/services/axios';
 import { ResponseDataWrapper } from '@/types/response.type';
 
@@ -13,6 +19,7 @@ const SET_USER = 'set_user';
 const ADD_USER = 'add_user';
 const UPDATE_USER = 'update_user';
 const DELETE_USER = 'delete_user';
+const SET_GROUPS = 'set_groups';
 const RESET_STATE = 'reset_state';
 
 const getters: GetterTreeAdaptor<Getters, State, RootState> = {
@@ -21,6 +28,9 @@ const getters: GetterTreeAdaptor<Getters, State, RootState> = {
 	},
 	user(state: State) {
 		return state.user;
+	},
+	groups(state: State) {
+		return state.groups;
 	}
 };
 
@@ -69,7 +79,10 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 	},
 	saveUser({ commit, dispatch }, user) {
 		return axios
-			.post<ResponseDataWrapper<User>>(`/api/users/`, user)
+			.post<ResponseDataWrapper<User>>(`/api/users/`, {
+				...user,
+				groups: (user.groups ?? []).map(g => g.id)
+			})
 			.then(response => response.data)
 			.then(response => {
 				commit(ADD_USER, response.data);
@@ -93,7 +106,8 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 			.put<ResponseDataWrapper<User>>(`/api/users/${id}`, {
 				first_name: user.first_name,
 				last_name: user.last_name,
-				email: user.email
+				email: user.email,
+				groups: (user.groups ?? []).map(g => g.id)
 			})
 			.then(response => {
 				commit(UPDATE_USER, { id, user: response.data });
@@ -132,6 +146,27 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 				);
 			});
 	},
+	fetchGroups({ commit, dispatch }) {
+		return axios
+			.get<ResponseDataWrapper<UserGroup[]>>('/api/groups/')
+			.then(response => response.data)
+			.then(response => {
+				commit(SET_GROUPS, response.data);
+			})
+			.catch(e => {
+				dispatch(
+					'AppStore/setAlert',
+					{
+						message: e.response?.data?.error
+							? e.response.data.error
+							: e.message,
+						type: 'error',
+						duration: 0
+					},
+					{ root: true }
+				);
+			});
+	},
 	async resetState({ commit }) {
 		commit(RESET_STATE);
 	}
@@ -141,7 +176,8 @@ export const store: Module<State, RootState> = {
 	namespaced: true,
 	state: {
 		users: [],
-		user: null!
+		user: null!,
+		groups: []
 	},
 	getters,
 	mutations: {
@@ -161,6 +197,9 @@ export const store: Module<State, RootState> = {
 		},
 		[DELETE_USER](state, id) {
 			state.users = state.users.filter(user => user.id !== id);
+		},
+		[SET_GROUPS](state, payload) {
+			state.groups = payload;
 		},
 		[RESET_STATE](state) {
 			state.users = [];

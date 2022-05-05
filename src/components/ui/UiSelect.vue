@@ -9,6 +9,7 @@
 			"
 			:name="name"
 			:required="required"
+			@input="event => $emit('select', event.target.value)"
 		>
 			<option
 				value=""
@@ -22,10 +23,10 @@
 			<option
 				v-for="option in options"
 				:key="option.id"
-				value="{{option.id}}"
+				:value="option.id"
 				:selected="selected === option.id"
 			>
-				{{ option.name || option.first_name}}
+				{{ option.name || option.first_name }}
 			</option>
 		</select>
 
@@ -50,7 +51,7 @@ export default defineComponent({
 			type: Boolean
 		},
 		selected: {
-			type: String
+			type: [Number, String]
 		},
 		options: {
 			type: Object,

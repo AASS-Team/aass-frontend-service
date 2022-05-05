@@ -46,6 +46,21 @@
 				</p>
 			</UiLabel>
 
+			<UiLabel
+				text="Rola"
+				labelFor="group"
+			>
+				<span
+					v-if="this.loading"
+					class="inline-block bg-gray-200 w-1/4 h-full opacity-50"
+				>
+					&nbsp;
+				</span>
+				<p v-else>
+					{{ user.groups[0]?.name }}
+				</p>
+			</UiLabel>
+
 			<div class="flex flex-row justify-end mt-5">
 				<UiButton
 					:disabled="this.loading"

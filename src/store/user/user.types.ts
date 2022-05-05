@@ -16,11 +16,13 @@ export interface UserGroup {
 export interface State {
 	users: User[];
 	user: User;
+	groups: UserGroup[];
 }
 
 export interface Getters {
 	users: User[];
 	user: User;
+	groups: UserGroup[];
 }
 
 export type Actions = {
@@ -29,5 +31,6 @@ export type Actions = {
 	saveUser: (sample: User) => Promise<void>;
 	updateUser: (payload: { id: string; user: User }) => Promise<void>;
 	deleteUser: (id: string) => Promise<void>;
+	fetchGroups: () => Promise<void>;
 	resetState: () => Promise<void>;
 };

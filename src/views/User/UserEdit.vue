@@ -65,6 +65,27 @@
 					/>
 				</UiLabel>
 
+				<UiLabel
+					text="Rola"
+					labelFor="groups"
+				>
+					<span
+						v-if="this.loading"
+						class="inline-block bg-gray-200 w-1/4 h-full opacity-50"
+					>
+						&nbsp;
+					</span>
+					<UiSelect
+						v-else
+						name="groups"
+						:selected="user.groups[0]?.id"
+						@select="onGroupSelect"
+						:options="groups"
+						:required="true"
+						class="w-1/4 text-gray-700"
+					></UiSelect>
+				</UiLabel>
+
 				<div class="flex flex-row justify-end mt-5">
 					<UiButton
 						text="Uložiť"
@@ -89,12 +110,15 @@ import UiButton from '@/components/ui/UiButton.vue';
 import UiLabel from '@/components/ui/UiLabel.vue';
 import { mapActions, mapGetters } from 'vuex';
 import UiInput from '@/components/ui/UiInput.vue';
+import UiSelect from '@/components/ui/UiSelect.vue';
+import { UserGroup } from '@/store/user/user.types';
 
 export default defineComponent({
 	components: {
 		UiInput,
 		UiButton,
-		UiLabel
+		UiLabel,
+		UiSelect
 	},
 	data: () => {
 		return {
@@ -103,12 +127,18 @@ export default defineComponent({
 		};
 	},
 	computed: {
-		...mapGetters('UserStore', ['user'])
+		...mapGetters('UserStore', ['user', 'groups'])
 	},
 	methods: {
-		...mapActions('UserStore', ['fetchUser', 'updateUser', 'resetState']),
+		...mapActions('UserStore', [
+			'fetchUser',
+			'updateUser',
+			'resetState',
+			'fetchGroups'
+		]),
 		...mapActions('UserStore', ['fetchUser']),
 		...mapActions('AppStore', ['setAlert']),
+
 		handleSubmit() {
 			this.saving = true;
 			if ((this.$refs.form as HTMLFormElement).checkValidity()) {
@@ -126,13 +156,22 @@ export default defineComponent({
 				this.saving = false;
 				(this.$refs.form as HTMLFormElement).reportValidity();
 			}
+		},
+
+		onGroupSelect(id: number) {
+			this.user.groups[0] = this.groups.find(
+				(g: UserGroup) => g.id == id
+			);
 		}
 	},
 	mounted: function () {
 		// initial loader
 		this.loading = true;
 		// fetch data from BE
-		this.fetchUser(this.$route.params.id).finally(() => {
+		Promise.all([
+			this.fetchUser(this.$route.params.id),
+			this.fetchGroups()
+		]).finally(() => {
 			this.loading = false;
 		});
 	},
