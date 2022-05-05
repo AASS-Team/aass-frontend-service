@@ -7,7 +7,6 @@ import {
 import { Actions, Getters, Grant, State } from '@/store/grant/grant.types';
 import axios from '@/services/axios';
 import { ResponseDataWrapper } from '@/types/response.type';
-import {Lab} from "@/store/lab/lab.types";
 
 const SET_GRANTS = 'set_grants';
 const SET_GRANT = 'set_grant';
@@ -92,7 +91,7 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 	updateGrant({ commit, dispatch }, { id, grant }) {
 		return axios
 			.put<ResponseDataWrapper<Grant>>(`/api/grants/${id}`, {
-				name: grant.name,
+				name: grant.name
 			})
 			.then(response => response.data)
 			.then(response => {
