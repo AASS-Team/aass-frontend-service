@@ -24,6 +24,9 @@
 				<td :class="[tableRowsClassObject(options, 1)]">
 					{{ item.email }}
 				</td>
+				<td :class="[tableRowsClassObject(options, 1)]">
+					{{ item.groups[0]?.name }}
+				</td>
 			</template>
 		</UiTable>
 	</div>
@@ -69,11 +72,10 @@ export default defineComponent({
 					items: [
 						{ name: 'meno' },
 						{ name: 'e-mail' },
+						{ name: 'rola' }
 					]
 				},
-				layout: [
-					{ width: 96, 'width-sm': 64, left: true },
-				]
+				layout: [{ width: 96, 'width-sm': 64, left: true }]
 			};
 		}
 	},

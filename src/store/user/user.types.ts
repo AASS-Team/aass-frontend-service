@@ -1,8 +1,16 @@
 export interface User {
-    id: string;
-    first_name: string;
-    last_name: string;
-    email: string;
+	id: string;
+	name?: string;
+	first_name: string;
+	last_name: string;
+	email: string;
+	password?: string;
+	groups?: UserGroup[];
+}
+
+export interface UserGroup {
+	id: number;
+	name: string;
 }
 
 export interface State {
@@ -11,15 +19,15 @@ export interface State {
 }
 
 export interface Getters {
-    users: User[];
-    user: User;
+	users: User[];
+	user: User;
 }
 
 export type Actions = {
-    fetchUsers: () => Promise<void>;
-    fetchUser: (id: string) => Promise<void>;
-    saveUser: (sample: User) => Promise<void>;
-    updateUser: (payload: { id: string; user: User }) => Promise<void>;
-    deleteUser: (id: string) => Promise<void>;
-    resetState: () => Promise<void>;
+	fetchUsers: () => Promise<void>;
+	fetchUser: (id: string) => Promise<void>;
+	saveUser: (sample: User) => Promise<void>;
+	updateUser: (payload: { id: string; user: User }) => Promise<void>;
+	deleteUser: (id: string) => Promise<void>;
+	resetState: () => Promise<void>;
 };

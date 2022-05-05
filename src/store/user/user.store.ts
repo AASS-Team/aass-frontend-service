@@ -5,6 +5,8 @@ import {
 	RootState
 } from '@/store/index.types';
 import { Actions, Getters, User, State } from '@/store/user/user.types';
+import axios from '@/services/axios';
+import { ResponseDataWrapper } from '@/types/response.type';
 
 const SET_USERS = 'set_users';
 const SET_USER = 'set_user';
@@ -24,32 +26,9 @@ const getters: GetterTreeAdaptor<Getters, State, RootState> = {
 
 const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 	fetchUsers({ commit, dispatch }) {
-		return new Promise<{ data: User[] }>(resolve => {
-			setTimeout(() => {
-				resolve({
-					data: [
-						{
-							id: 'd845c72a-2108-4b76-9dc0-2c3f936873ad',
-							first_name: 'Používateľka',
-							last_name: 'Iná',
-							email: 'user2@test.sk'
-						},
-						{
-							id: '4386280d-00d4-4677-a2c5-a68c66ec6825',
-							first_name: 'Používateľ',
-							last_name: 'Použitý',
-							email: 'user@test.sk'
-						},
-						{
-							id: 'f7d9caf4-9101-4fe5-859a-f286272640a3',
-							first_name: 'Laborant',
-							last_name: 'Laboratórny',
-							email: 'laborant@test.sk'
-						}
-					]
-				});
-			}, 750);
-		})
+		return axios
+			.get<ResponseDataWrapper<User[]>>('/api/users/')
+			.then(response => response.data)
 			.then(response => {
 				commit(SET_USERS, response.data);
 			})
@@ -68,18 +47,9 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 			});
 	},
 	fetchUser({ commit, dispatch }, id) {
-		return new Promise<{ data: User }>(resolve => {
-			setTimeout(() => {
-				resolve({
-					data: {
-						id: 'd845c72a-2108-4b76-9dc0-2c3f936873ad',
-						first_name: 'Používateľka',
-						last_name: 'Iná',
-						email: 'user2@test.sk'
-					}
-				});
-			}, 750);
-		})
+		return axios
+			.get<ResponseDataWrapper<User>>(`/api/users/${id}`)
+			.then(response => response.data)
 			.then(response => {
 				commit(SET_USER, response.data);
 			})
@@ -98,18 +68,9 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 			});
 	},
 	saveUser({ commit, dispatch }, user) {
-		return new Promise<{ data: User }>(resolve => {
-			setTimeout(() => {
-				resolve({
-					data: {
-						id: 'd845c72a-2108-4b76-9dc0-2c3f936873ad',
-						first_name: 'Používateľka',
-						last_name: 'Iná',
-						email: 'user2@test.sk'
-					}
-				});
-			}, 750);
-		})
+		return axios
+			.post<ResponseDataWrapper<User>>(`/api/users/`, user)
+			.then(response => response.data)
 			.then(response => {
 				commit(ADD_USER, response.data);
 			})
@@ -128,18 +89,12 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 			});
 	},
 	updateUser({ commit, dispatch }, { id, user }) {
-		return new Promise<{ data: User }>(resolve => {
-			setTimeout(() => {
-				resolve({
-					data: {
-						id: 'd845c72a-2108-4b76-9dc0-2c3f936873ad',
-						first_name: 'Používateľka',
-						last_name: 'Iná',
-						email: 'user2@test.sk'
-					}
-				});
-			}, 750);
-		})
+		return axios
+			.put<ResponseDataWrapper<User>>(`/api/users/${id}`, {
+				first_name: user.first_name,
+				last_name: user.last_name,
+				email: user.email
+			})
 			.then(response => {
 				commit(UPDATE_USER, { id, user: response.data });
 			})
@@ -158,11 +113,8 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 			});
 	},
 	deleteUser({ commit, dispatch }, id) {
-		return new Promise(resolve => {
-			setTimeout(() => {
-				resolve(null);
-			}, 750);
-		})
+		return axios
+			.delete<ResponseDataWrapper<User>>(`/api/users/${id}`)
 			.then(() => {
 				commit(DELETE_USER, id);
 			})
