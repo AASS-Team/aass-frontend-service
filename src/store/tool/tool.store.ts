@@ -7,6 +7,7 @@ import {
 import { Actions, Getters, Tool, State } from '@/store/tool/tool.types';
 import axios from '@/services/axios';
 import { ResponseDataWrapper } from '@/types/response.type';
+import { handleErrors } from '@/mixins/ErrorHandler.mixin';
 
 const SET_TOOLS = 'set_tools';
 const SET_TOOL = 'set_tool';
@@ -36,9 +37,7 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 				dispatch(
 					'AppStore/setAlert',
 					{
-						message: e.response?.data?.error
-							? e.response.data.error
-							: e.message,
+						message: handleErrors(e),
 						type: 'error',
 						duration: 0
 					},
@@ -57,9 +56,7 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 				dispatch(
 					'AppStore/setAlert',
 					{
-						message: e.response?.data?.error
-							? e.response.data.error
-							: e.message,
+						message: handleErrors(e),
 						type: 'error',
 						duration: 0
 					},
@@ -78,9 +75,7 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 				dispatch(
 					'AppStore/setAlert',
 					{
-						message: e.response?.data?.error
-							? e.response.data.error
-							: e.message,
+						message: handleErrors(e),
 						type: 'error',
 						duration: 0
 					},
@@ -92,7 +87,7 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 		return axios
 			.put<ResponseDataWrapper<Tool>>(`/api/tools/${id}`, {
 				name: tool.name,
-				type: tool.type,
+				type: tool.type
 			})
 			.then(response => response.data)
 			.then(response => {
@@ -102,9 +97,7 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 				dispatch(
 					'AppStore/setAlert',
 					{
-						message: e.response?.data?.error
-							? e.response.data.error
-							: e.message,
+						message: handleErrors(e),
 						type: 'error',
 						duration: 0
 					},
@@ -122,9 +115,7 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 				dispatch(
 					'AppStore/setAlert',
 					{
-						message: e.response?.data?.error
-							? e.response.data.error
-							: e.message,
+						message: handleErrors(e),
 						type: 'error',
 						duration: 0
 					},

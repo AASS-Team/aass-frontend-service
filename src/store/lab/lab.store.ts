@@ -7,6 +7,7 @@ import {
 import { Actions, Getters, Lab, State } from '@/store/lab/lab.types';
 import axios from '@/services/axios';
 import { ResponseDataWrapper } from '@/types/response.type';
+import { handleErrors } from '@/mixins/ErrorHandler.mixin';
 
 const SET_LABS = 'set_labs';
 const SET_LAB = 'set_lab';
@@ -36,9 +37,7 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 				dispatch(
 					'AppStore/setAlert',
 					{
-						message: e.response?.data?.error
-							? e.response.data.error
-							: e.message,
+						message: handleErrors(e),
 						type: 'error',
 						duration: 0
 					},
@@ -57,9 +56,7 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 				dispatch(
 					'AppStore/setAlert',
 					{
-						message: e.response?.data?.error
-							? e.response.data.error
-							: e.message,
+						message: handleErrors(e),
 						type: 'error',
 						duration: 0
 					},
@@ -78,9 +75,7 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 				dispatch(
 					'AppStore/setAlert',
 					{
-						message: e.response?.data?.error
-							? e.response.data.error
-							: e.message,
+						message: handleErrors(e),
 						type: 'error',
 						duration: 0
 					},
@@ -102,9 +97,7 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 				dispatch(
 					'AppStore/setAlert',
 					{
-						message: e.response?.data?.error
-							? e.response.data.error
-							: e.message,
+						message: handleErrors(e),
 						type: 'error',
 						duration: 0
 					},
@@ -122,9 +115,7 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 				dispatch(
 					'AppStore/setAlert',
 					{
-						message: e.response?.data?.error
-							? e.response.data.error
-							: e.message,
+						message: handleErrors(e),
 						type: 'error',
 						duration: 0
 					},

@@ -11,6 +11,7 @@ import {
 	State
 } from '@/store/analysis/analysis.types';
 import { AnalysisStatus } from '@/types/analysis-status.enum';
+import { handleErrors } from '@/mixins/ErrorHandler.mixin';
 
 const SET_ANALYSES = 'set_analyses';
 const SET_ANALYSIS = 'set_analysis';
@@ -96,9 +97,7 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 				dispatch(
 					'AppStore/setAlert',
 					{
-						message: e.response?.data?.error
-							? e.response.data.error
-							: e.message,
+						message: handleErrors(e),
 						type: 'error',
 						duration: 0
 					},
@@ -171,9 +170,7 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 				dispatch(
 					'AppStore/setAlert',
 					{
-						message: e.response?.data?.error
-							? e.response.data.error
-							: e.message,
+						message: handleErrors(e),
 						type: 'error',
 						duration: 0
 					},
@@ -207,9 +204,7 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 				dispatch(
 					'AppStore/setAlert',
 					{
-						message: e.response?.data?.error
-							? e.response.data.error
-							: e.message,
+						message: handleErrors(e),
 						type: 'error',
 						duration: 0
 					},
@@ -243,9 +238,7 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 				dispatch(
 					'AppStore/setAlert',
 					{
-						message: e.response?.data?.error
-							? e.response.data.error
-							: e.message,
+						message: handleErrors(e),
 						type: 'error',
 						duration: 0
 					},
@@ -266,9 +259,7 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 				dispatch(
 					'AppStore/setAlert',
 					{
-						message: e.response?.data?.error
-							? e.response.data.error
-							: e.message,
+						message: handleErrors(e),
 						type: 'error',
 						duration: 0
 					},
