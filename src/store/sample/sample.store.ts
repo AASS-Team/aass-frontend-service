@@ -5,6 +5,9 @@ import {
 	RootState
 } from '@/store/index.types';
 import { Actions, Getters, Sample, State } from '@/store/sample/sample.types';
+import axios from '@/services/axios';
+import { ResponseDataWrapper } from '@/types/response.type';
+import { handleErrors } from '@/mixins/ErrorHandler.mixin';
 
 const SET_SAMPLES = 'set_samples';
 const SET_SAMPLE = 'set_sample';
@@ -24,48 +27,9 @@ const getters: GetterTreeAdaptor<Getters, State, RootState> = {
 
 const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 	fetchSamples({ commit, dispatch }) {
-		return new Promise<{ data: Sample[] }>(resolve => {
-			setTimeout(() => {
-				resolve({
-					data: [
-						{
-							id: '044f00a8-d337-45c3-b90e-a602016b59c6',
-							name: 'Vzorka #323',
-							note: '',
-							amount: 15.0,
-							created_at: '2022-04-13T00:39:40.341Z',
-							user: {
-								id: '123',
-								first_name: 'Martin',
-								last_name: 'Jahoda',
-								email: 'Martin.jahoda@gmail.com'
-							},
-							grant: {
-								id: '123',
-								name: 'nbu'
-							}
-						},
-						{
-							id: '177c7a47-bed6-4d6b-9dc4-e773fa358097',
-							name: 'Vzorka #233',
-							note: 'Martin raz dva tri',
-							amount: 185.0,
-							created_at: '2022-09-06T00:39:40.341Z',
-							user: {
-								id: '123',
-								first_name: 'Martin',
-								last_name: 'Jahoda',
-								email: 'Martin.jahoda@gmail.com'
-							},
-							grant: {
-								id: '123',
-								name: 'nbu'
-							}
-						}
-					]
-				});
-			}, 750);
-		})
+		return axios
+			.get<ResponseDataWrapper<Sample[]>>('/api/samples/')
+			.then(response => response.data)
 			.then(response => {
 				commit(SET_SAMPLES, response.data);
 			})
@@ -73,9 +37,7 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 				dispatch(
 					'AppStore/setAlert',
 					{
-						message: e.response?.data?.error
-							? e.response.data.error
-							: e.message,
+						message: handleErrors(e),
 						type: 'error',
 						duration: 0
 					},
@@ -84,29 +46,9 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 			});
 	},
 	fetchSample({ commit, dispatch }, id) {
-		return new Promise<{ data: Sample }>(resolve => {
-			setTimeout(() => {
-				resolve({
-					data: {
-						id: id,
-						name: 'Vzorka #233',
-						note: 'Martin raz dva tri',
-						amount: 185.0,
-						created_at: '2022-09-06T00:39:40.341Z',
-						user: {
-							id: '123',
-							first_name: 'Martin',
-							last_name: 'Jahoda',
-							email: 'Martin.Jahoda@gmail.com'
-						},
-						grant: {
-							id: '123',
-							name: 'NBU'
-						}
-					}
-				});
-			}, 750);
-		})
+		return axios
+			.get<ResponseDataWrapper<Sample>>(`/api/samples/${id}`)
+			.then(response => response.data)
 			.then(response => {
 				commit(SET_SAMPLE, response.data);
 			})
@@ -114,9 +56,7 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 				dispatch(
 					'AppStore/setAlert',
 					{
-						message: e.response?.data?.error
-							? e.response.data.error
-							: e.message,
+						message: handleErrors(e),
 						type: 'error',
 						duration: 0
 					},
@@ -125,29 +65,14 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 			});
 	},
 	saveSample({ commit, dispatch }, sample) {
-		return new Promise<{ data: Sample }>(resolve => {
-			setTimeout(() => {
-				resolve({
-					data: {
-						id: Math.random().toString(),
-						name: 'Vzorka #233',
-						note: 'Martin raz dva tri',
-						amount: 185.0,
-						created_at: '6.9.',
-						user: {
-							id: '123',
-							first_name: 'Martin',
-							last_name: 'Jahoda',
-							email: 'Martin.jahoda@gmail.com'
-						},
-						grant: {
-							id: '123',
-							name: 'nbu'
-						}
-					}
-				});
-			}, 750);
-		})
+		return axios
+			.post<ResponseDataWrapper<Sample>>(`/api/samples/`, {
+				name: sample.name,
+				amount: sample.amount,
+				note: sample.note,
+				user: sample.user.id,
+				grant: sample.grant?.id ?? ''
+			})
 			.then(response => {
 				commit(ADD_SAMPLE, response.data);
 			})
@@ -155,9 +80,7 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 				dispatch(
 					'AppStore/setAlert',
 					{
-						message: e.response?.data?.error
-							? e.response.data.error
-							: e.message,
+						message: handleErrors(e),
 						type: 'error',
 						duration: 0
 					},
@@ -166,29 +89,14 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 			});
 	},
 	updateSample({ commit, dispatch }, { id, sample }) {
-		return new Promise<{ data: Sample }>(resolve => {
-			setTimeout(() => {
-				resolve({
-					data: {
-						id: id,
-						name: 'Vzorka #233',
-						note: 'Martin raz dva tri',
-						amount: 185.0,
-						created_at: '123',
-						user: {
-							id: '123',
-							first_name: 'Martin',
-							last_name: 'Jahoda',
-							email: 'Martin.Jahoda@gmail.com'
-						},
-						grant: {
-							id: '123',
-							name: 'nbu'
-						}
-					}
-				});
-			}, 750);
-		})
+		return axios
+			.put<ResponseDataWrapper<Sample>>(`/api/samples/${id}`, {
+				name: sample.name,
+				note: sample.note,
+				amount: sample.amount,
+				user: sample.user.id,
+				grant: sample.grant?.id ?? ''
+			})
 			.then(response => {
 				commit(UPDATE_SAMPLE, { id, sample: response.data });
 			})
@@ -196,9 +104,7 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 				dispatch(
 					'AppStore/setAlert',
 					{
-						message: e.response?.data?.error
-							? e.response.data.error
-							: e.message,
+						message: handleErrors(e),
 						type: 'error',
 						duration: 0
 					},
@@ -207,11 +113,8 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 			});
 	},
 	deleteSample({ commit, dispatch }, id) {
-		return new Promise(resolve => {
-			setTimeout(() => {
-				resolve(null);
-			}, 750);
-		})
+		return axios
+			.delete<void>(`/api/samples/${id}`)
 			.then(() => {
 				commit(DELETE_SAMPLE, id);
 			})
@@ -219,9 +122,7 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 				dispatch(
 					'AppStore/setAlert',
 					{
-						message: e.response?.data?.error
-							? e.response.data.error
-							: e.message,
+						message: handleErrors(e),
 						type: 'error',
 						duration: 0
 					},

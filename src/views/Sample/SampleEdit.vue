@@ -35,9 +35,10 @@
 						v-else
 						name="user"
 						:options="users"
+						:selected="sample.user.id"
+						@select="onUserSelect"
 						class="text-gray-700 w-1/4"
 						required
-						selected="sample.user.id"
 					>
 					</UiSelect>
 				</UiLabel>
@@ -57,8 +58,9 @@
 						v-else
 						name="grant"
 						:options="grants"
+						:selected="sample.grant?.id"
+						@select="onGrantSelect"
 						class="text-gray-700 w-1/4"
-						selected="sample.grant.id"
 					>
 					</UiSelect>
 					<span class="ml-3 text-gray-500 text-sm"
@@ -134,6 +136,9 @@ import UiLabel from '@/components/ui/UiLabel.vue';
 import UiSelect from '@/components/ui/UiSelect.vue';
 import { mapActions, mapGetters } from 'vuex';
 import UiInput from '@/components/ui/UiInput.vue';
+import { Sample } from '@/store/sample/sample.types';
+import { Grant } from '@/store/grant/grant.types';
+import { User } from '@/store/user/user.types';
 
 export default defineComponent({
 	components: {
@@ -145,36 +150,13 @@ export default defineComponent({
 	data: () => {
 		return {
 			saving: false,
-			loading: true,
-			users: [
-				{
-					id: 'f7d9caf4-9101-4fe5-859a-f286272640a3',
-					first_name: 'Nikoleta',
-					last_name: 'Hroncova',
-					email: 'nikoleta@gmail.com'
-				},
-				{
-					id: 'f7d9caf4-9101-4fe5-859a-f286272640b3',
-					first_name: 'Petra',
-					last_name: 'Hroncova',
-					email: 'petra@gmail.com'
-				}
-			],
-			//TODO change to fetchgrant in future
-			grants: [
-				{
-					id: '123',
-					name: 'NBU'
-				},
-				{
-					id: 'f7d9caf4-9101-4fe5-859a-f286272640b3',
-					name: 'STU'
-				}
-			]
+			loading: true
 		};
 	},
 	computed: {
-		...mapGetters('SampleStore', ['sample'])
+		...mapGetters('SampleStore', ['sample']),
+		...mapGetters('GrantStore', ['grants']),
+		...mapGetters('UserStore', ['users'])
 	},
 	methods: {
 		...mapActions('SampleStore', [
@@ -182,7 +164,10 @@ export default defineComponent({
 			'updateSample',
 			'resetState'
 		]),
+		...mapActions('GrantStore', ['fetchGrants']),
+		...mapActions('UserStore', ['fetchUsers']),
 		...mapActions('AppStore', ['setAlert']),
+
 		handleSubmit() {
 			this.saving = true;
 			if ((this.$refs.form as HTMLFormElement).checkValidity()) {
@@ -200,13 +185,30 @@ export default defineComponent({
 				this.saving = false;
 				(this.$refs.form as HTMLFormElement).reportValidity();
 			}
+		},
+
+		onGrantSelect(id: string) {
+			(this.sample as Sample).grant = this.grants.find(
+				(g: Grant) => g.id == id
+			);
+		},
+
+		onUserSelect(id: string) {
+			(this.sample as Sample).user = this.users.find(
+				(u: User) => u.id == id
+			);
 		}
 	},
 	mounted: function () {
 		// initial loader
 		this.loading = true;
+
 		// fetch data from BE
-		this.fetchSample(this.$route.params.id).finally(() => {
+		Promise.all([
+			this.fetchSample(this.$route.params.id),
+			this.fetchUsers(),
+			this.fetchGrants()
+		]).then(() => {
 			this.loading = false;
 		});
 	},

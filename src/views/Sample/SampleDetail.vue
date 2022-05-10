@@ -13,7 +13,7 @@
 				</template>
 			</h1>
 			<UiLabel
-				text="Používatel"
+				text="Používateľ"
 				labelFor="user"
 			>
 				<span
@@ -26,7 +26,13 @@
 					v-else
 					class="relative flex items-center"
 				>
-					{{ sample.user.first_name +' '+ sample.user.last_name }}
+					<router-link
+						v-if="sample.user"
+						:to="{ name: 'user-detail', params: {id: sample.user.id} }"
+						class="text-blue-600 hover:underline"
+					>
+						{{ sample.user.name }}
+					</router-link>
 				</div>
 			</UiLabel>
 
@@ -44,7 +50,13 @@
 					v-else
 					class="relative flex items-center"
 				>
-					{{ sample.grant.name }}
+					<router-link
+						v-if="sample.grant"
+						:to="{ name: 'grant-detail', params: {id: sample.grant.id} }"
+						class="text-blue-600 hover:underline"
+					>
+						{{ sample.grant.name }}
+					</router-link>
 				</div>
 			</UiLabel>
 
@@ -62,7 +74,10 @@
 					v-else
 					class="relative flex items-center"
 				>
-					{{ sample.amount }} ml
+					<p>
+						{{ sample.amount }}
+					</p>
+					<span class="ml-3 text-gray-500">ml</span>
 				</div>
 
 			</UiLabel>
@@ -77,12 +92,14 @@
 				>
 					&nbsp;
 				</span>
-				<div
+				<textarea
 					v-else
-					class="relative flex items-center"
-				>
-					{{ sample.note }}
-				</div>
+					name="note"
+					class="text-gray-700 w-2/3 bg-gray-300 p-2 rounded focus:outline-none placeholder-gray-500"
+					disabled
+					rows="4"
+					:value="sample.note"
+				></textarea>
 			</UiLabel>
 
 			<div class="flex flex-row justify-end mt-5">
@@ -109,8 +126,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { mapActions, mapGetters } from 'vuex';
+import {defineComponent} from 'vue';
+import {mapActions, mapGetters} from 'vuex';
 import UiButton from '@/components/ui/UiButton.vue';
 import UiLabel from '@/components/ui/UiLabel.vue';
 

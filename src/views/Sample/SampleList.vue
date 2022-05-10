@@ -22,10 +22,10 @@
 					{{ item.name }}
 				</td>
 				<td :class="[tableRowsClassObject(options, 1)]">
-					{{ item.user.first_name + ' ' + item.user.last_name }}
+					{{ item.user.name }}
 				</td>
 				<td :class="[tableRowsClassObject(options, 2)]">
-					{{ item.created_at }}
+					{{ new Date(item.created_at).toLocaleString('sk-SK') }}
 				</td>
 			</template>
 		</UiTable>
@@ -71,7 +71,7 @@ export default defineComponent({
 				header: {
 					items: [
 						{ name: 'názov' },
-						{ name: 'používatel' },
+						{ name: 'používateľ' },
 						{ name: 'dátum' }
 					]
 				},
