@@ -59,7 +59,7 @@ module.exports = {
 	plugins: [],
 	safelist: [
 		{
-			pattern: /^w-/
+			pattern: /^((xs|sm|md|lg|xl):)*w-/
 		}
 	]
 };
