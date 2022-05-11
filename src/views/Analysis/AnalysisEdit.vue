@@ -35,6 +35,7 @@
 						:options="samples"
 						key="vzorka"
 						:selected="analysis.sample.id"
+						@select="onSampleSelect"
 						:required="true"
 						class="w-1/4 text-gray-700"
 					></UiSelect>
@@ -57,6 +58,7 @@
 						:options="users"
 						:required="true"
 						:selected="analysis.laborant.id"
+						@select="onUserSelect"
 						class="w-1/4 text-gray-700"
 					></UiSelect>
 				</UiLabel>
@@ -78,6 +80,7 @@
 						:required="true"
 						:options="labs"
 						:selected="analysis.lab.id"
+						@select="onLabSelect"
 						class="w-1/4 text-gray-700"
 					></UiSelect>
 				</UiLabel>
@@ -109,6 +112,7 @@
 										class="w-full text-gray-700"
 										:options="tools"
 										:selected="item.id"
+										@select="t => onToolSelect(index, t)"
 										name="tools"
 										:required="true"
 									/>
@@ -153,6 +157,11 @@ import UiButton from '@/components/ui/UiButton.vue';
 import UiLabel from '@/components/ui/UiLabel.vue';
 import UiSelect from '@/components/ui/UiSelect.vue';
 import { mapActions, mapGetters } from 'vuex';
+import { Sample } from '@/store/sample/sample.types';
+import { Analysis } from '@/store/analysis/analysis.types';
+import { Tool } from '@/store/tool/tool.types';
+import { User } from '@/store/user/user.types';
+import { Lab } from '@/store/lab/lab.types';
 
 export default defineComponent({
 	components: {
@@ -163,28 +172,15 @@ export default defineComponent({
 	data: () => {
 		return {
 			saving: false,
-			loading: true,
-			users: [
-				{
-					id: 'f7d9caf4-9101-4fe5-859a-f286272640a3',
-					first_name: 'Nikoleta',
-					last_name: 'Hroncova',
-					email: 'nikoleta@gmail.com'
-				},
-				{
-					id: 'f7d9caf4-9101-4fe5-859a-f286272640b3',
-					first_name: 'Petra',
-					last_name: 'Hroncova',
-					email: 'petra@gmail.com'
-				}
-			]
+			loading: true
 		};
 	},
 	computed: {
 		...mapGetters('AnalysisStore', ['analysis']),
 		...mapGetters('LabStore', ['labs']),
 		...mapGetters('ToolStore', ['tools']),
-		...mapGetters('SampleStore', ['samples'])
+		...mapGetters('SampleStore', ['samples']),
+		...mapGetters('UserStore', ['users'])
 	},
 	methods: {
 		...mapActions('AnalysisStore', [
@@ -196,13 +192,40 @@ export default defineComponent({
 		...mapActions('LabStore', ['fetchLabs']),
 		...mapActions('ToolStore', ['fetchTools']),
 		...mapActions('SampleStore', ['fetchSamples']),
+		...mapActions('UserStore', ['fetchUsers']),
 
 		addTool: function () {
 			this.analysis.tools.push({});
 		},
+
 		deleteTool: function (index: number) {
 			this.analysis.tools = this.analysis.tools.splice(index, 1);
 		},
+
+		onSampleSelect(id: string) {
+			(this.analysis as Analysis).sample = this.samples.find(
+				(s: Sample) => s.id == id
+			);
+		},
+
+		onLabSelect(id: string) {
+			(this.analysis as Analysis).lab = this.labs.find(
+				(l: Lab) => l.id == id
+			);
+		},
+
+		onUserSelect(id: string) {
+			(this.analysis as Analysis).laborant = this.users.find(
+				(u: User) => u.id == id
+			);
+		},
+
+		onToolSelect(index: number, id: string) {
+			(this.analysis as Analysis).tools[index] = this.tools.find(
+				(t: Tool) => t.id == id
+			);
+		},
+
 		handleSubmit() {
 			this.saving = true;
 			if ((this.$refs.form as HTMLFormElement).checkValidity()) {
@@ -230,7 +253,8 @@ export default defineComponent({
 			this.fetchAnalysis(this.$route.params.id),
 			this.fetchLabs(),
 			this.fetchTools(),
-			this.fetchSamples()
+			this.fetchSamples(),
+			this.fetchUsers()
 		]).then(() => {
 			this.loading = false;
 		});

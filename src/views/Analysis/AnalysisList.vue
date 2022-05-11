@@ -18,12 +18,13 @@
 
 		<UiTable :options="options">
 			<template v-slot="item">
-				<td :class="[tableRowsClassObject(options, 0)]"></td>
+				<td :class="[tableRowsClassObject(options, 0)]">
+					<UiStatusIcon :status="item.status" />
+				</td>
 				<td :class="[tableRowsClassObject(options, 1)]">
 					{{ item.sample.name }}
 				</td>
 				<td :class="[tableRowsClassObject(options, 2)]">
-					<UiStatusIcon :status="item.status" />
 					{{ mapStatus(item.status) }}
 				</td>
 			</template>

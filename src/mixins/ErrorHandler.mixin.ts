@@ -6,6 +6,9 @@ export function handleErrors(e: AxiosError) {
 	if (e.response?.data?.errors) {
 		if (Array.isArray(e.response.data.errors))
 			targetErrors = e.response.data.errors;
+		if ('detail' in e.response.data.errors) {
+			targetErrors = e.response.data.errors.detail;
+		}
 		if ('errors' in e.response.data.errors) {
 			targetErrors = e.response.data.errors.errors;
 		}

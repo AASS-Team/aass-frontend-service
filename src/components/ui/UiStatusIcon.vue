@@ -27,7 +27,8 @@ export default defineComponent({
 			type: String as PropType<AnalysisStatus>
 		},
 		available: {
-			type: Boolean
+			type: Boolean,
+			default: undefined
 		}
 	}
 });

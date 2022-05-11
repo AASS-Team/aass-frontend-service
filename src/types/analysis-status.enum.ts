@@ -1,5 +1,5 @@
 export enum AnalysisStatus {
-	FINISHED = 'FINISHED',
-	PENDING = 'PENDING',
-	IN_PROGRESS = 'IN_PROGRESS'
+	FINISHED = 'Finished',
+	PENDING = 'Pending',
+	IN_PROGRESS = 'In progress'
 }

@@ -10,8 +10,9 @@ import {
 	Analysis,
 	State
 } from '@/store/analysis/analysis.types';
-import { AnalysisStatus } from '@/types/analysis-status.enum';
 import { handleErrors } from '@/mixins/ErrorHandler.mixin';
+import axios from '@/services/axios';
+import { ResponseDataWrapper } from '@/types/response.type';
 
 const SET_ANALYSES = 'set_analyses';
 const SET_ANALYSIS = 'set_analysis';
@@ -31,65 +32,9 @@ const getters: GetterTreeAdaptor<Getters, State, RootState> = {
 
 const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 	fetchAnalyses({ commit, dispatch }) {
-		return new Promise<{ data: Analysis[] }>(resolve => {
-			setTimeout(() => {
-				resolve({
-					data: [
-						{
-							id: '01b7f288-4311-4c62-8a24-8aeea22b0054',
-							sample: {
-								id: '044f00a8-d337-45c3-b90e-a602016b59c6',
-								name: 'Vzorka #323',
-								note: '',
-								amount: 15.0,
-								created_at: '2022-04-13T00:39:40.341Z',
-								user: {
-									id: '123',
-									first_name: 'Martin',
-									last_name: 'Jahoda',
-									email: 'Martin.jahoda@gmail.com'
-								},
-								grant: {
-									id: '123',
-									name: 'nbu'
-								}
-							},
-							laborant: {
-								id: 'f7d9caf4-9101-4fe5-859a-f286272640a3',
-								first_name: 'Nikoleta',
-								last_name: 'Hroncova',
-								email: 'nikoleta@gmail.com'
-							},
-							lab: {
-								id: '431406e8-fbbd-4b54-a5cd-01173f681580',
-								name: 'A211',
-								address: 'Radlinského 9, 812 37 Bratislava',
-								available: true
-							},
-							status: AnalysisStatus.PENDING,
-							structure: null,
-							created_at: '2022-04-13T02:14:11.365Z',
-							started_at: null,
-							ended_at: null,
-							tools: [
-								{
-									id: '13ab4987-913e-4e4f-9aec-5f2c8cd1619e',
-									name: 'Spektrometer DS213',
-									type: 'machine',
-									available: true
-								},
-								{
-									id: '2cfdcd14-4e80-4dc3-9c1f-39181802378d',
-									name: 'Pipeta veľká',
-									type: 'tool',
-									available: true
-								}
-							]
-						}
-					]
-				});
-			}, 750);
-		})
+		return axios
+			.get<ResponseDataWrapper<Analysis[]>>('/api/analyses/')
+			.then(response => response.data)
 			.then(response => {
 				commit(SET_ANALYSES, response.data);
 			})
@@ -106,63 +51,9 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 			});
 	},
 	fetchAnalysis({ commit, dispatch }, id) {
-		return new Promise<{ data: Analysis }>(resolve => {
-			setTimeout(() => {
-				resolve({
-					data: {
-						id: '01b7f288-4311-4c62-8a24-8aeea22b0054',
-						sample: {
-							id: '044f00a8-d337-45c3-b90e-a602016b59c6',
-							name: 'Vzorka #323',
-							note: '',
-							amount: 15.0,
-							created_at: '2022-04-13T00:39:40.341Z',
-							user: {
-								id: '123',
-								first_name: 'Martin',
-								last_name: 'Jahoda',
-								email: 'Martin.jahoda@gmail.com'
-							},
-							grant: {
-								id: '123',
-								name: 'nbu'
-							}
-						},
-						laborant: {
-							id: 'f7d9caf4-9101-4fe5-859a-f286272640a3',
-							first_name: 'Nikoleta',
-							last_name: 'Hroncova',
-							email: 'nikoleta@gmail.com'
-						},
-						lab: {
-							id: '431406e8-fbbd-4b54-a5cd-01173f681580',
-							name: 'A211',
-							address: 'Radlinského 9, 812 37 Bratislava',
-							available: true
-						},
-						status: AnalysisStatus.PENDING,
-						structure: null,
-						created_at: '2022-04-13T02:14:11.365Z',
-						started_at: null,
-						ended_at: null,
-						tools: [
-							{
-								id: '13ab4987-913e-4e4f-9aec-5f2c8cd1619e',
-								name: 'Spektrometer DS213',
-								type: 'machine',
-								available: true
-							},
-							{
-								id: '2cfdcd14-4e80-4dc3-9c1f-39181802378d',
-								name: 'Pipeta veľká',
-								type: 'tool',
-								available: true
-							}
-						]
-					}
-				});
-			}, 750);
-		})
+		return axios
+			.get<ResponseDataWrapper<Analysis>>(`/api/analyses/${id}`)
+			.then(response => response.data)
 			.then(response => {
 				commit(SET_ANALYSIS, response.data);
 			})
@@ -179,24 +70,14 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 			});
 	},
 	saveAnalysis({ commit, dispatch }, analysis) {
-		return new Promise<{ data: Analysis }>(resolve => {
-			setTimeout(() => {
-				resolve({
-					data: {
-						id: Math.random().toString(),
-						sample: analysis.sample,
-						laborant: analysis.laborant,
-						lab: analysis.lab,
-						status: analysis.status,
-						structure: analysis.structure,
-						created_at: analysis.created_at,
-						started_at: analysis.started_at,
-						ended_at: analysis.ended_at,
-						tools: analysis.tools
-					}
-				});
-			}, 750);
-		})
+		return axios
+			.post<ResponseDataWrapper<Analysis>>(`/api/analyses/`, {
+				lab: analysis.lab.id,
+				laborant: analysis.laborant.id,
+				sample: analysis.sample.id,
+				tools: analysis.tools.map(t => t.id)
+			})
+			.then(response => response.data)
 			.then(response => {
 				commit(ADD_ANALYSIS, response.data);
 			})
@@ -213,24 +94,18 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 			});
 	},
 	updateAnalysis({ commit, dispatch }, { id, analysis }) {
-		return new Promise<{ data: Analysis }>(resolve => {
-			setTimeout(() => {
-				resolve({
-					data: {
-						id: id,
-						sample: analysis.sample,
-						laborant: analysis.laborant,
-						lab: analysis.lab,
-						status: analysis.status,
-						structure: analysis.structure,
-						created_at: analysis.created_at,
-						started_at: analysis.started_at,
-						ended_at: analysis.ended_at,
-						tools: analysis.tools
-					}
-				});
-			}, 750);
-		})
+		return axios
+			.put<ResponseDataWrapper<Analysis>>(`/api/analyses/${id}`, {
+				status: analysis.status,
+				structure: analysis.structure,
+				lab: analysis.lab.id,
+				sample: analysis.sample.id,
+				laborant: analysis.laborant?.id ?? null,
+				tools: analysis.tools.map(t => t.id),
+				created_at: analysis.created_at,
+				ended_at: analysis.ended_at
+			})
+			.then(response => response.data)
 			.then(response => {
 				commit(UPDATE_ANALYSIS, { id, analysis: response.data });
 			})
@@ -247,13 +122,48 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 			});
 	},
 	deleteAnalysis({ commit, dispatch }, id) {
-		return new Promise(resolve => {
-			setTimeout(() => {
-				resolve(null);
-			}, 750);
-		})
+		return axios
+			.delete<void>(`/api/analyses/${id}`)
 			.then(() => {
 				commit(DELETE_ANALYSIS, id);
+			})
+			.catch(e => {
+				dispatch(
+					'AppStore/setAlert',
+					{
+						message: handleErrors(e),
+						type: 'error',
+						duration: 0
+					},
+					{ root: true }
+				);
+			});
+	},
+	startAnalysis({ commit, dispatch }, id) {
+		return axios
+			.post<ResponseDataWrapper<Analysis>>(`/api/analyses/${id}/start`)
+			.then(response => response.data)
+			.then(response => {
+				commit(UPDATE_ANALYSIS, { id, analysis: response.data });
+			})
+			.catch(e => {
+				dispatch(
+					'AppStore/setAlert',
+					{
+						message: handleErrors(e),
+						type: 'error',
+						duration: 0
+					},
+					{ root: true }
+				);
+			});
+	},
+	finishAnalysis({ commit, dispatch }, id) {
+		return axios
+			.post<ResponseDataWrapper<Analysis>>(`/api/analyses/${id}/finish`)
+			.then(response => response.data)
+			.then(response => {
+				commit(UPDATE_ANALYSIS, { id, analysis: response.data });
 			})
 			.catch(e => {
 				dispatch(

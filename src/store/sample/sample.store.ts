@@ -73,6 +73,7 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 				user: sample.user.id,
 				grant: sample.grant?.id ?? ''
 			})
+			.then(response => response.data)
 			.then(response => {
 				commit(ADD_SAMPLE, response.data);
 			})
@@ -97,6 +98,7 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 				user: sample.user.id,
 				grant: sample.grant?.id ?? ''
 			})
+			.then(response => response.data)
 			.then(response => {
 				commit(UPDATE_SAMPLE, { id, sample: response.data });
 			})
