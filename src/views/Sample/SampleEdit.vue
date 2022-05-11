@@ -177,7 +177,7 @@ export default defineComponent({
 				}).then(() => {
 					this.saving = false;
 					return this.$router.push({
-						name: 'samples-detail',
+						name: 'sample-detail',
 						params: { id: this.sample.id }
 					});
 				});

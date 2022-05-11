@@ -62,7 +62,7 @@ export default defineComponent({
 					items: this.samples,
 					onClick: sample =>
 						this.$router.push({
-							name: 'samples-detail',
+							name: 'sample-detail',
 							params: { id: sample.id }
 						}),
 					empty: 'Ľutujeme, nenašli sa žiadne vzorky',

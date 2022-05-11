@@ -33,7 +33,7 @@ const routes: Array<RouteRecordRaw> = [
 					},
 					{
 						path: ':id',
-						name: 'samples-detail',
+						name: 'sample-detail',
 						meta: {
 							title: 'Detail vzorky'
 						},
