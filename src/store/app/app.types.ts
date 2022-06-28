@@ -1,3 +1,5 @@
+import { User } from '@/store/user/user.types';
+
 export interface NavigationGroup {
 	title: string;
 	items: NavigationItem[];
@@ -15,6 +17,11 @@ interface Alert {
 	message: string;
 	type: AlertType;
 	duration: number;
+}
+
+interface AuthCredentials {
+	username: string;
+	password: string;
 }
 
 export interface State {
@@ -35,4 +42,6 @@ export type Actions = {
 	toggleNavigation: () => Promise<void>;
 	setAlert: (alert: Alert) => Promise<void>;
 	dismissAlert: () => Promise<void>;
+	login: (credentials: AuthCredentials) => Promise<void>;
+	logout: () => Promise<void>;
 };

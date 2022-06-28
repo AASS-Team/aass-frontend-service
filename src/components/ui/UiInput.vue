@@ -1,5 +1,8 @@
 <template>
-	<div class="px-3 pb-1 bg-gray-300 rounded">
+	<div
+		class="px-3 pb-1 bg-gray-300 rounded"
+		:class="{ 'pt-8': labeled }"
+	>
 		<input
 			:value="modelValue"
 			@input="event => $emit('update:modelValue', event.target.value)"
@@ -7,6 +10,7 @@
 			:name="name"
 			:required="required"
 			:placeholder="placeholder"
+			:autocomplete="autocomplete"
 			class="bg-gray-300 pt-2 pb-1 text-gray-700 outline-none placeholder-gray-500 self-center align-middle w-full"
 			step="any"
 		/>
@@ -37,6 +41,10 @@ export default defineComponent({
 		},
 		placeholder: {
 			type: [Number, String]
+		},
+		autocomplete: {
+			type: [Boolean, String],
+			default: undefined
 		}
 	}
 });

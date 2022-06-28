@@ -337,8 +337,35 @@ const routes: Array<RouteRecordRaw> = [
 						]
 					}
 				]
-			}
+			},
+			{
+				path: '/change-password',
+				component: RouterView,
+				children: [
+					{
+						path: '',
+						meta: {
+							title: 'Zmena hesla'
+						},
+						component: () =>
+							import(
+								/* webpackChunkName: "ChangePasswordView" */ '@/views/ChangePasswordView.vue'
+							)
+					},
+				]
+			},
+
 		]
+	},
+	{
+		path: '/login',
+		meta: {
+			title: 'Prihlásenie',
+		},
+		component: () =>
+			import(
+				/* webpackChunkName: "LoginView" */ '@/views/LoginView.vue'
+				)
 	},
 	{
 		path: '/404',

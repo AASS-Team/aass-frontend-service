@@ -5,10 +5,14 @@ import {
 	GetterTreeAdaptor,
 	RootState
 } from '@/store/index.types';
+import axios from '@/services/axios';
+import { handleErrors } from '@/mixins/ErrorHandler.mixin';
 
 const TOGGLE_NAVIGATION = 'toggle_navigation';
 const SET_ALERT_ACTIVE = 'set_alert_active';
 const SET_ALERT = 'set_alert';
+const LOGIN = 'login';
+const LOGOUT = 'logout';
 
 const getters: GetterTreeAdaptor<Getters, State, RootState> = {
 	navigation(state: State) {
@@ -35,6 +39,29 @@ const actions: ActionTreeAdaptor<Actions, State, RootState> = {
 	},
 	async dismissAlert({ commit }) {
 		commit(SET_ALERT_ACTIVE, false);
+	},
+	async login({ commit, dispatch }, payload) {
+		return axios
+			.post<unknown>('/api/login/', payload)
+			.then(response => {
+				console.log('Response: ', response);
+				commit(LOGIN);
+			})
+			.catch(e => {
+				dispatch(
+					'AppStore/setAlert',
+					{
+						message: handleErrors(e),
+						type: 'error',
+						duration: 0
+					},
+					{ root: true }
+				);
+				throw handleErrors(e);
+			});
+	},
+	async logout({ commit }) {
+		commit(LOGOUT);
 	}
 };
 
@@ -111,7 +138,9 @@ export const store: Module<State, RootState> = {
 		},
 		[SET_ALERT](state, alert) {
 			state.alert = { duration: 2500, ...alert };
-		}
+		},
+		[LOGIN](state) {},
+		[LOGOUT](state) {}
 	},
 	actions
 };
