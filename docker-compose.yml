@@ -4,7 +4,8 @@ services:
   web:
     build: .
     image: aass-frontend-service:latest
-    command: "npm run serve"
+    entrypoint: /aass-frontend-service/entrypoint.sh
+    command: npm run serve
     volumes:
       - .:/aass-frontend-service/
     ports:

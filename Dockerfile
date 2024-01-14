@@ -6,5 +6,9 @@ WORKDIR /aass-frontend-service
 # install npm dependencies
 COPY package*.json ./
 
-# install project dependencies
-RUN npm install
+# copy entrypoint
+COPY entrypoint.sh ./
+
+RUN chmod +x entrypoint.sh
+
+CMD ["entrypoint.sh", "npm","run","serve"]
