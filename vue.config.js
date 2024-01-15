@@ -7,7 +7,8 @@ module.exports = {
 	productionSourceMap: false,
 	lintOnSave: false,
 	devServer: {
-		port: 8080
+		port: 8080,
+		host: '0.0.0.0'
 	},
 	configureWebpack: {
 		resolve: {
