@@ -341,6 +341,16 @@ const routes: Array<RouteRecordRaw> = [
 		]
 	},
 	{
+		path: '/login',
+		meta: {
+			title: 'Prihlásenie',
+		},
+		component: () =>
+			import(
+				/* webpackChunkName: "LoginView" */ '@/views/LoginView.vue'
+				)
+	},
+	{
 		path: '/404',
 		name: '404',
 		meta: {

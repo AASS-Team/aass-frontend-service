@@ -17,6 +17,11 @@ interface Alert {
 	duration: number;
 }
 
+export interface AuthCredentials {
+	username: string;
+	password: string;
+}
+
 export interface State {
 	navigation: NavigationGroup[];
 	navigationCollapsed: boolean;
@@ -35,4 +40,6 @@ export type Actions = {
 	toggleNavigation: () => Promise<void>;
 	setAlert: (alert: Alert) => Promise<void>;
 	dismissAlert: () => Promise<void>;
+	login: (credentials: AuthCredentials) => Promise<void>;
+	logout: () => Promise<void>;
 };

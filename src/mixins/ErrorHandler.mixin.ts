@@ -13,7 +13,7 @@ export function handleErrors(e: AxiosError) {
 			targetErrors = e.response.data.errors.errors;
 		}
 	} else {
-		targetErrors = e.message;
+		targetErrors = e.response?.data?.error ?? e.message;
 	}
 
 	if (Array.isArray(targetErrors)) return targetErrors;

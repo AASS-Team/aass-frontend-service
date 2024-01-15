@@ -26,6 +26,34 @@ app.use(router);
 // Make axios available in component & store scope
 app.config.globalProperties.$axios = axios;
 
+// intercept responses
+axios.interceptors.response.use(
+	response => {
+		return response;
+	},
+	error => {
+		// server error
+		if (!error.response) {
+			console.log(error.response);
+			return Promise.reject(error);
+		}
+
+		// handle specific responses
+		switch (error.response.status) {
+			case 401: // authentication error, logout the user
+				console.error(error.response.status, error.message);
+				store.dispatch('AppStore/logout');
+				router.push('/login');
+				break;
+
+			default:
+				console.error(error.response.status, error.message);
+		}
+
+		return Promise.reject(error);
+	}
+);
+
 // Font Awesome icons
 app.component('fa-icon', FontAwesomeIcon);
 
